@@ -1,9 +1,9 @@
-package org.jeffklein.tw.tempcodes.dao.service;
+package org.jeffklein.tw.tempcodes.dataaccess.service;
 
-import org.jeffklein.tw.tempcodes.dao.TempCodeApiResponseDAO;
-import org.jeffklein.tw.tempcodes.dao.TempCodeDAO;
-import org.jeffklein.tw.tempcodes.dao.model.TempCode;
-import org.jeffklein.tw.tempcodes.dao.model.TempCodeApiResponse;
+import org.jeffklein.tw.tempcodes.dataaccess.dao.TempCodeApiResponseDAO;
+import org.jeffklein.tw.tempcodes.dataaccess.dao.TempCodeDAO;
+import org.jeffklein.tw.tempcodes.dataaccess.model.TempCode;
+import org.jeffklein.tw.tempcodes.dataaccess.model.TempCodeApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

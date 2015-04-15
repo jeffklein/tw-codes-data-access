@@ -1,4 +1,4 @@
-package org.jeffklein.tw.tempcodes.dao.model;
+package org.jeffklein.tw.tempcodes.dataaccess.model;
 
 import org.jeffklein.tw.tempcodes.client.TempCode;
 

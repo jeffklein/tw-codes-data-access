@@ -1,6 +1,6 @@
-package org.jeffklein.tw.tempcodes.dao;
+package org.jeffklein.tw.tempcodes.dataaccess.dao;
 
-import org.jeffklein.tw.tempcodes.dao.model.TempCodeApiResponse;
+import org.jeffklein.tw.tempcodes.dataaccess.model.TempCodeApiResponse;
 
 import java.util.List;
 

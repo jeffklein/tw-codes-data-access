@@ -34,7 +34,7 @@ CREATE TABLE user (
     modified_date DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP,
     username VARCHAR(60) NOT NULL,
     password VARCHAR(41) NOT NULL,
-    twname VARCHAR(60) NOT NULL,
+    tw_name VARCHAR(60) NOT NULL,
     last_login DATETIME NOT NULL,
     -- todo move prefs into a separate table
     pref_timezone VARCHAR(60) NOT NULL DEFAULT 'UST',

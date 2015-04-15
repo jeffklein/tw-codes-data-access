@@ -1,7 +1,7 @@
-package org.jeffklein.tw.tempcodes.dao.service;
+package org.jeffklein.tw.tempcodes.dataaccess.service;
 
-import org.jeffklein.tw.tempcodes.dao.model.TempCode;
-import org.jeffklein.tw.tempcodes.dao.model.TempCodeApiResponse;
+import org.jeffklein.tw.tempcodes.dataaccess.model.TempCode;
+import org.jeffklein.tw.tempcodes.dataaccess.model.TempCodeApiResponse;
 
 import java.util.List;
 

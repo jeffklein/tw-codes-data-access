@@ -1,4 +1,4 @@
-package org.jeffklein.tw.tempcodes.dao;
+package org.jeffklein.tw.tempcodes.dataaccess.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

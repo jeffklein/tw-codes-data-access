@@ -1,4 +1,4 @@
-package org.jeffklein.tw.tempcodes.dao.model;
+package org.jeffklein.tw.tempcodes.dataaccess.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

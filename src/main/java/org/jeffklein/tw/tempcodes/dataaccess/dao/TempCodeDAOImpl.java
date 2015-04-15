@@ -1,8 +1,8 @@
-package org.jeffklein.tw.tempcodes.dao;
+package org.jeffklein.tw.tempcodes.dataaccess.dao;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.jeffklein.tw.tempcodes.dao.model.TempCode;
+import org.jeffklein.tw.tempcodes.dataaccess.model.TempCode;
 
 import java.util.List;
 

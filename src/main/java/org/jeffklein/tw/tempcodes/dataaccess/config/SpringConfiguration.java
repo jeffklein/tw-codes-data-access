@@ -1,4 +1,4 @@
-package org.jeffklein.tw.tempcodes.dao.config;
+package org.jeffklein.tw.tempcodes.dataaccess.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
