@@ -9,7 +9,7 @@ import java.util.List;
  * Entry point for using the Hibernate DAOs.
  */
 public interface TempCodeService {
-    void bulkInsertNewTempCodes(TempCodeApiResponse response);
+    void saveTempCodeApiResponse(TempCodeApiResponse response);
     List<TempCode> findAllTempCodes();
     List<TempCode> findAllUnexpiredTempCodes();
 }

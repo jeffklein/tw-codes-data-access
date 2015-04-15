@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Entity(name = "tempCode")
 @Table(name="temp_code")
-public class TempCode extends org.jeffklein.tw.tempcodes.client.TempCode {
+public class TempCode extends org.jeffklein.turfwars.codes.client.TempCode {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;

@@ -20,9 +20,8 @@ public class TempCodeServiceImpl implements TempCodeService {
     private TempCodeDAO tempCodeDAO;
 
     @Override
-    public void bulkInsertNewTempCodes(TempCodeApiResponse response) {
-
-
+    public void saveTempCodeApiResponse(TempCodeApiResponse response) {
+        tempCodeApiResponseDAO.saveTempCodeApiResponse(response);
     }
 
     /*
@@ -30,11 +29,11 @@ public class TempCodeServiceImpl implements TempCodeService {
      */
     @Override
     public List<TempCode> findAllTempCodes() {
-        return null;
+        return tempCodeDAO.findAll();
     }
 
     @Override
     public List<TempCode> findAllUnexpiredTempCodes() {
-        return null;
+        throw new RuntimeException("not implemented yet!");
     }
 }

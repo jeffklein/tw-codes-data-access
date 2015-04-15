@@ -1,6 +1,6 @@
 package org.jeffklein.turfwars.codes.dataaccess.model;
 
-import org.jeffklein.tw.tempcodes.client.TempCode;
+import org.jeffklein.turfwars.codes.client.TempCode;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Entity(name = "tempCodeApiResponse")
 @Table(name="temp_code_api_response")
-public class TempCodeApiResponse extends org.jeffklein.tw.tempcodes.client.TempCodeApiResponse {
+public class TempCodeApiResponse extends org.jeffklein.turfwars.codes.client.TempCodeApiResponse {
     @Id
     @Column(name = "id", nullable = false)
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class TempCodeApiResponse extends org.jeffklein.tw.tempcodes.client.TempC
     @OneToMany(mappedBy = "tempCode")
     private List<TempCode> codes;
 
-    public TempCodeApiResponse(Date timestamp, Date nextUpdate, List<org.jeffklein.tw.tempcodes.client.TempCode> codes) {
+    public TempCodeApiResponse(Date timestamp, Date nextUpdate, List<org.jeffklein.turfwars.codes.client.TempCode> codes) {
         super(timestamp, nextUpdate, codes);
     }
 
