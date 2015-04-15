@@ -1,4 +1,4 @@
-package org.jeffklein.tw.tempcodes.dataaccess.model;
+package org.jeffklein.turfwars.codes.dataaccess.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

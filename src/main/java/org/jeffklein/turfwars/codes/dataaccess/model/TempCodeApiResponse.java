@@ -1,4 +1,4 @@
-package org.jeffklein.tw.tempcodes.dataaccess.model;
+package org.jeffklein.turfwars.codes.dataaccess.model;
 
 import org.jeffklein.tw.tempcodes.client.TempCode;
 

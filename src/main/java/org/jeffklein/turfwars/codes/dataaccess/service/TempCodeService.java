@@ -1,7 +1,7 @@
-package org.jeffklein.tw.tempcodes.dataaccess.service;
+package org.jeffklein.turfwars.codes.dataaccess.service;
 
-import org.jeffklein.tw.tempcodes.dataaccess.model.TempCode;
-import org.jeffklein.tw.tempcodes.dataaccess.model.TempCodeApiResponse;
+import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
+import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package org.jeffklein.tw.tempcodes.dataaccess.dao;
+package org.jeffklein.turfwars.codes.dataaccess.dao;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.jeffklein.tw.tempcodes.dataaccess.model.TempCodeApiResponse;
+import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

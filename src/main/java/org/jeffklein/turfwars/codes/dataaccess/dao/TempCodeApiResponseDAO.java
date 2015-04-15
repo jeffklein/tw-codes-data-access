@@ -1,6 +1,6 @@
-package org.jeffklein.tw.tempcodes.dataaccess.dao;
+package org.jeffklein.turfwars.codes.dataaccess.dao;
 
-import org.jeffklein.tw.tempcodes.dataaccess.model.TempCodeApiResponse;
+import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
 
 import java.util.List;
 

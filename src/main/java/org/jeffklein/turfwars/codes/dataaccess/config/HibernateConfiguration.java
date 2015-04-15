@@ -1,4 +1,4 @@
-package org.jeffklein.tw.tempcodes.dataaccess.config;
+package org.jeffklein.turfwars.codes.dataaccess.config;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "org.jeffklein.tw.tempcodes.dataaccess" })
+@ComponentScan({ "org.jeffklein.turfwars.codes.dataaccess" })
 @PropertySource(value = { "classpath:data-access.properties" })
 public class HibernateConfiguration {
     @Autowired
