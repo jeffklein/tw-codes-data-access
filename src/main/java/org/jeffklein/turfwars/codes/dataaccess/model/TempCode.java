@@ -1,21 +1,32 @@
 package org.jeffklein.turfwars.codes.dataaccess.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.jeffklein.turfwars.codes.client.*;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Override of the base TempCode class which uses Jackson annotations.
  * This version extends the base version by adding JPA annotations.
  */
-@Entity(name = "tempCode")
+@Entity
 @Table(name="temp_code")
-public class TempCode extends org.jeffklein.turfwars.codes.client.TempCode {
+public class TempCode {
+
+  public TempCode(org.jeffklein.turfwars.codes.client.TempCode tempCode, org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse apiResponse) {
+    this.code = tempCode.getCode();
+    this.expires = tempCode.getExpires();
+    this.apiResponse = apiResponse;
+  }
+
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
+
+  @ManyToOne
+  @JoinColumn(name="api_response_id", insertable=false, updatable=false)
+    private TempCodeApiResponse apiResponse;
 
     @Column(name = "expires", nullable = false)
     private Date expires;
@@ -23,17 +34,14 @@ public class TempCode extends org.jeffklein.turfwars.codes.client.TempCode {
     @Column(name = "code", nullable = false)
     private String code;
 
-    public TempCode(Date expires, String code) {
-        super(expires, code);
-    }
+//    @Column(name = "api_response_id", nullable = false)
+//    private Integer apiResponseId;
 
-    @Override
     public Date getExpires() {
-        return super.getExpires();
+        return this.expires;
     }
 
-    @Override
     public String getCode() {
-        return super.getCode();
+        return this.code;
     }
 }

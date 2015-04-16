@@ -1,8 +1,7 @@
 package org.jeffklein.turfwars.codes.dataaccess.model;
 
-import org.jeffklein.turfwars.codes.client.TempCode;
-
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,14 +15,13 @@ public class TempCodeApiResponse {
 
     public TempCodeApiResponse(org.jeffklein.turfwars.codes.client.TempCodeApiResponse jsonResponse) {
         this.timestamp = jsonResponse.getTimestamp();
-        //this.codes = jsonResponse.getTempCodes();
         this.nextUpdate = jsonResponse.getNextUpdate();
+        this.jsonCodes = jsonResponse.getTempCodes();
     }
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "payload_ts", nullable = false)
@@ -32,8 +30,8 @@ public class TempCodeApiResponse {
     @Column(name = "next_update", nullable = false)
     private Date nextUpdate;
 
-    //@OneToMany(mappedBy = "tempCode")
-    //private List<TempCode> codes;
+  @Transient
+    private List<org.jeffklein.turfwars.codes.client.TempCode> jsonCodes;
 
     public Date getTimestamp() {
         return this.timestamp;
@@ -43,9 +41,13 @@ public class TempCodeApiResponse {
         return this.nextUpdate;
     }
 
-/*    public List<TempCode> getTempCodes() {
-        return this.codes;
-    }*/
+  @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+  @JoinColumn(name = "api_response_id")
+    public List<TempCode> getTempCodes() {
+        ArrayList<TempCode> hibernateCodes = new ArrayList<TempCode>();
+        hibernateCodes.add(new org.jeffklein.turfwars.codes.dataaccess.model.TempCode(jsonCodes.get(0), this));
+        return hibernateCodes;
+    }
 
     public Integer getId() {
         return id;
