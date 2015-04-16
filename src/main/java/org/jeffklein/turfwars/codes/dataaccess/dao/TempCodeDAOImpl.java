@@ -3,12 +3,14 @@ package org.jeffklein.turfwars.codes.dataaccess.dao;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Implementation of DAO methods required by TempCodeDAO.
  */
+@Repository("tempCodeDAO")
 public class TempCodeDAOImpl extends AbstractHibernateDAO implements TempCodeDAO {
     @Override
     public void saveTempCode(TempCode tempCode) {

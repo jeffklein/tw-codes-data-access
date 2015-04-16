@@ -1,11 +1,17 @@
 package org.jeffklein.turfwars.codes.dataaccess;
 
 import org.jeffklein.turfwars.codes.client.TempCodeApiClient;
+import org.jeffklein.turfwars.codes.dataaccess.config.HibernateConfiguration;
+import org.jeffklein.turfwars.codes.dataaccess.config.SpringConfiguration;
 import org.jeffklein.turfwars.codes.dataaccess.dao.TempCodeApiResponseDAO;
 import org.jeffklein.turfwars.codes.dataaccess.dao.TempCodeApiResponseDAOImpl;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 /**
@@ -15,11 +21,16 @@ import org.testng.annotations.Test;
  * Time: 11:11 PM
  * To change this template use File | Settings | File Templates.
  */
-public class TempCodeApiResponseTest {
+@ContextConfiguration(classes = {SpringConfiguration.class, HibernateConfiguration.class})
+public class TempCodeApiResponseTest extends AbstractTestNGSpringContextTests {
 
-    private TempCodeApiClient tempCodeApiClient = new TempCodeApiClient();;
+    @Autowired
+    @Qualifier("tempCodeApiClient")
+    private TempCodeApiClient tempCodeApiClient;
 
-    private TempCodeApiResponseDAO responseDAO = new TempCodeApiResponseDAOImpl();
+    @Autowired
+    @Qualifier("tempCodeApiResponseDAO")
+    private TempCodeApiResponseDAO responseDAO;
 
     @Test
     public void testSaveTempCodeApiResponse() {

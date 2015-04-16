@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Lazy;
  * This class only exists so that ComponentScan can do its thang.
  */
 @Configuration
-@ComponentScan(basePackages = "org.jeffklein.turfwars.*")
+@ComponentScan(basePackages = "org.jeffklein.turfwars.codes")
 public class SpringConfiguration {
     // Could configure some beans here (MessageSource, PropertySourcesPlaceHolderConfigurer, etc)
 

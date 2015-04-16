@@ -4,6 +4,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * Implementation of DAO methods required by TempCodeApiResponseDAO.
  */
 @Repository("tempCodeApiResponseDAO")
+@Transactional
 public class TempCodeApiResponseDAOImpl extends AbstractHibernateDAO implements TempCodeApiResponseDAO {
     @Override
     public void saveTempCodeApiResponse(TempCodeApiResponse response) {
