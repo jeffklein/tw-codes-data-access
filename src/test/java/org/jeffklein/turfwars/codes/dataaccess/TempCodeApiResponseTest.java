@@ -1,7 +1,10 @@
 package org.jeffklein.turfwars.codes.dataaccess;
 
 import org.jeffklein.turfwars.codes.client.TempCodeApiClient;
+import org.jeffklein.turfwars.codes.dataaccess.dao.TempCodeApiResponseDAO;
+import org.jeffklein.turfwars.codes.dataaccess.dao.TempCodeApiResponseDAOImpl;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 
@@ -14,12 +17,14 @@ import org.testng.annotations.Test;
  */
 public class TempCodeApiResponseTest {
 
-    @Autowired
-    private TempCodeApiClient apiClient;
+    private TempCodeApiClient tempCodeApiClient = new TempCodeApiClient();;
+
+    private TempCodeApiResponseDAO responseDAO = new TempCodeApiResponseDAOImpl();
 
     @Test
     public void testSaveTempCodeApiResponse() {
-        TempCodeApiResponse response = (org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse) apiClient.getTempCodeApiResponse();
-        // persist that shit.
+        org.jeffklein.turfwars.codes.client.TempCodeApiResponse jsonResponse = tempCodeApiClient.getTempCodeApiResponse();
+        TempCodeApiResponse toPersist = new TempCodeApiResponse(jsonResponse);
+        responseDAO.saveTempCodeApiResponse(toPersist);
     }
 }

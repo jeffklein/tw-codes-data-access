@@ -12,7 +12,14 @@ import java.util.List;
  */
 @Entity(name = "tempCodeApiResponse")
 @Table(name="temp_code_api_response")
-public class TempCodeApiResponse extends org.jeffklein.turfwars.codes.client.TempCodeApiResponse {
+public class TempCodeApiResponse {
+
+    public TempCodeApiResponse(org.jeffklein.turfwars.codes.client.TempCodeApiResponse jsonResponse) {
+        this.timestamp = jsonResponse.getTimestamp();
+        this.codes = jsonResponse.getTempCodes();
+        this.nextUpdate = jsonResponse.getNextUpdate();
+    }
+
     @Id
     @Column(name = "id", nullable = false)
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,23 +34,16 @@ public class TempCodeApiResponse extends org.jeffklein.turfwars.codes.client.Tem
     @OneToMany(mappedBy = "tempCode")
     private List<TempCode> codes;
 
-    public TempCodeApiResponse(Date timestamp, Date nextUpdate, List<org.jeffklein.turfwars.codes.client.TempCode> codes) {
-        super(timestamp, nextUpdate, codes);
-    }
-
-    @Override
     public Date getTimestamp() {
-        return super.getTimestamp();
+        return this.timestamp;
     }
 
-    @Override
     public Date getNextUpdate() {
-        return super.getNextUpdate();
+        return this.nextUpdate;
     }
 
-    @Override
-    public List<TempCode> getCodes() {
-        return super.getCodes();
+    public List<TempCode> getTempCodes() {
+        return this.codes;
     }
 
     public Integer getId() {
