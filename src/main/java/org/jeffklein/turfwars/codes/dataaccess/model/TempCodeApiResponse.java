@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name="temp_code_api_response")
 public class TempCodeApiResponse {
 
-    public TempCodeApiResponse(org.jeffklein.turfwars.codes.client.TempCodeApiResponse jsonResponse) {
+    public TempCodeApiResponse(org.jeffklein.turfwars.codes.client.TempCodeApiJsonResponse jsonResponse) {
         this.timestamp = jsonResponse.getTimestamp();
         this.nextUpdate = jsonResponse.getNextUpdate();
         this.jsonCodes = jsonResponse.getTempCodes();
