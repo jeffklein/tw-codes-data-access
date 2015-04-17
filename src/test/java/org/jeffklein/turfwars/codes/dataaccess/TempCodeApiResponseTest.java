@@ -1,6 +1,6 @@
 package org.jeffklein.turfwars.codes.dataaccess;
 
-import org.jeffklein.turfwars.codes.client.TempCodeApiClient;
+import org.jeffklein.turfwars.codes.client.TurfWarsApiClient;
 import org.jeffklein.turfwars.codes.dataaccess.config.HibernateConfiguration;
 import org.jeffklein.turfwars.codes.dataaccess.config.SpringConfiguration;
 import org.jeffklein.turfwars.codes.dataaccess.dao.TempCodeApiResponseDAO;
@@ -23,17 +23,17 @@ import org.testng.annotations.Test;
 public class TempCodeApiResponseTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
-    @Qualifier("tempCodeApiClient")
-    private TempCodeApiClient tempCodeApiClient;
+    @Qualifier("turfWarsApiClient")
+    private TurfWarsApiClient turfWarsApiClient;
 
     @Autowired
     @Qualifier("tempCodeApiResponseDAO")
-    private TempCodeApiResponseDAO responseDAO;
+    private TempCodeApiResponseDAO tempCodeApiResponseDAO;
 
     @Test
     public void testSaveTempCodeApiResponse() {
-        org.jeffklein.turfwars.codes.client.TempCodeApiJsonResponse jsonResponse = tempCodeApiClient.getTempCodeApiResponse();
+        org.jeffklein.turfwars.codes.client.TempCodeApiJsonResponse jsonResponse = turfWarsApiClient.getTempCodeApiResponse();
         TempCodeApiResponse toPersist = new TempCodeApiResponse(jsonResponse);
-        responseDAO.saveTempCodeApiResponse(toPersist);
+        tempCodeApiResponseDAO.saveTempCodeApiResponse(toPersist);
     }
 }
