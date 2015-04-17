@@ -13,11 +13,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Jeff
- * Date: 4/14/15
- * Time: 11:11 PM
- * To change this template use File | Settings | File Templates.
+ * Autowire this, beeyatch!
  */
 @ContextConfiguration(classes = {SpringConfiguration.class, HibernateConfiguration.class})
 public class TempCodeApiResponseTest extends AbstractTestNGSpringContextTests {
