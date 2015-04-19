@@ -1,32 +1,24 @@
 package org.jeffklein.turfwars.codes.dataaccess.model;
 
-import org.jeffklein.turfwars.codes.client.*;
-
 import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Override of the base TempCode class which uses Jackson annotations.
- * This version extends the base version by adding JPA annotations.
+ * JPA Entity class for TempCode's
  */
 @Entity
-@Table(name="temp_code")
+@Table(name = "temp_code")
 public class TempCode {
 
-  public TempCode(org.jeffklein.turfwars.codes.client.TempCode tempCode, org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse apiResponse) {
-    this.code = tempCode.getCode();
-    this.expires = tempCode.getExpires();
-    this.apiResponse = apiResponse;
-  }
-
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-  @ManyToOne
-  @JoinColumn(name="api_response_id", insertable=false, updatable=false)
-    private TempCodeApiResponse apiResponse;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "api_response_id")
+    private TempCodeApiResponse tempCodeApiResponse;
 
     @Column(name = "expires", nullable = false)
     private Date expires;
@@ -34,14 +26,49 @@ public class TempCode {
     @Column(name = "code", nullable = false)
     private String code;
 
-//    @Column(name = "api_response_id", nullable = false)
+//    //@Column(name = "api_response_id", nullable = false)
+//    @Transient
 //    private Integer apiResponseId;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+//    @ManyToOne(fetch = FetchType.EAGER, targetEntity = TempCodeApiResponse.class)
+//    @JoinColumn(name = "api_response_id", nullable = false)
+    public TempCodeApiResponse getTempCodeApiResponse() {
+        return tempCodeApiResponse;
+    }
+
+    public void setTempCodeApiResponse(TempCodeApiResponse apiResponse) {
+        this.tempCodeApiResponse = apiResponse;
+    }
+
+    public Integer getApiResponseId() {
+        return this.tempCodeApiResponse.getId();
+    }
+
+//    public void setApiResponseId(Integer apiResponseId) {
+//        this.apiResponseId = apiResponseId;
+//    }
+
     public Date getExpires() {
-        return this.expires;
+        return expires;
+    }
+
+    public void setExpires(Date expires) {
+        this.expires = expires;
     }
 
     public String getCode() {
-        return this.code;
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

@@ -3,6 +3,7 @@ package org.jeffklein.turfwars.codes.dataaccess.dao;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Method signatures for the TempCodeDAO.
@@ -10,7 +11,8 @@ import java.util.List;
  * but I added some finder methods just in case.
  */
 public interface TempCodeDAO {
-    void saveTempCode(TempCode tempCode);
+    void saveTempCode(TempCode tempCode, Integer apiResponseId);
+    void saveTempCodes(Set<TempCode> tempCodes, Integer apiResponseId);
     List<TempCode> findAll();
     TempCode findById(Integer id);
     TempCode findByCode(String code);

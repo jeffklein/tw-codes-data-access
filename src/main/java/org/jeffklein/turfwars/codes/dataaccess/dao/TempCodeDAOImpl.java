@@ -4,17 +4,28 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Implementation of DAO methods required by TempCodeDAO.
  */
 @Repository("tempCodeDAO")
+@Transactional
 public class TempCodeDAOImpl extends AbstractHibernateDAO implements TempCodeDAO {
     @Override
-    public void saveTempCode(TempCode tempCode) {
+    public void saveTempCode(TempCode tempCode, Integer apiResponseId) {
+        //tempCode.setApiResponseId(apiResponseId);
         persist(tempCode);
+    }
+
+    @Override
+    public void saveTempCodes(Set<TempCode> tempCodes, Integer apiResponseId) {
+        for (TempCode code : tempCodes) {
+            saveTempCode(code, apiResponseId);
+        }
     }
 
     @Override
