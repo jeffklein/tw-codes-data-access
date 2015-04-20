@@ -28,7 +28,7 @@ public class TempCodeServiceImpl implements TempCodeService {
 
     @Override
     public Integer saveTempCodeApiResponse(TempCodeApiResponse response) {
-        return tempCodeApiResponseDAO.saveTempCodeApiResponse(response);
+        return tempCodeApiResponseDAO.createTempCodeApiResponse(response);
     }
 
     /*

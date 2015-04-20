@@ -14,7 +14,7 @@ import java.util.List;
 @Repository("tempCodeApiResponseDAO")
 public class TempCodeApiResponseDAOImpl extends AbstractHibernateDAO implements TempCodeApiResponseDAO {
     @Override
-    public Integer saveTempCodeApiResponse(TempCodeApiResponse response) {
+    public Integer createTempCodeApiResponse(TempCodeApiResponse response) {
         return (Integer) create(response);
     }
 
@@ -23,12 +23,12 @@ public class TempCodeApiResponseDAOImpl extends AbstractHibernateDAO implements 
         super.delete(response);
     }
 
-    @Override
+    /*@Override
     @SuppressWarnings("unchecked")
     public List<TempCodeApiResponse> findAll() {
         Criteria criteria = getSession().createCriteria(TempCodeApiResponseDAO.class);
         return (List<TempCodeApiResponse>) criteria.list();
-    }
+    }*/
 
     @Override
     public TempCodeApiResponse findById(Integer id) {

@@ -1,8 +1,7 @@
-package org.jeffklein.turfwars.codes.dataaccess;
+package org.jeffklein.turfwars.codes.dataaccess.dao;
 
 import org.jeffklein.turfwars.codes.dataaccess.config.HibernateConfiguration;
 import org.jeffklein.turfwars.codes.dataaccess.config.SpringConfiguration;
-import org.jeffklein.turfwars.codes.dataaccess.dao.TempCodeApiResponseDAO;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
 
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -26,7 +24,7 @@ import java.util.Set;
  * should never be updated.
  */
 @ContextConfiguration(classes = {SpringConfiguration.class, HibernateConfiguration.class})
-public class TempCodeApiResponseTest extends AbstractTestNGSpringContextTests {
+public class TempCodeApiResponseDAOTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     @Qualifier("tempCodeService")
@@ -48,7 +46,7 @@ public class TempCodeApiResponseTest extends AbstractTestNGSpringContextTests {
         toPersist.setNextUpdate(now);
         toPersist.setTimestamp(now);
         toPersist.setTempCodes(makeTestTempCodeData(toPersist));
-        this.apiResponseId = tempCodeApiResponseDAO.saveTempCodeApiResponse(toPersist);
+        this.apiResponseId = tempCodeApiResponseDAO.createTempCodeApiResponse(toPersist);
     }
 
     @Test(dependsOnMethods = "testCreateTempCodeApiResponse")
