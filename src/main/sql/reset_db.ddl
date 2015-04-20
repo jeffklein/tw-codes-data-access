@@ -36,12 +36,14 @@ CREATE TABLE user (
     modified_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     username VARCHAR(60) NOT NULL,
     password VARCHAR(41) NOT NULL,
+    email VARCHAR(60) NULL DEFAULT NULL,
     tw_name VARCHAR(60) NOT NULL,
     last_login DATETIME NOT NULL,
     -- todo move prefs into a separate table
     pref_timezone VARCHAR(60) NOT NULL DEFAULT 'UST',
     pref_hide_used boolean NOT NULL DEFAULT 1,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE KEY (username)
 );
 
 CREATE TABLE temp_code_used (
@@ -52,6 +54,7 @@ CREATE TABLE temp_code_used (
     user_id INT NOT NULL,
     FOREIGN KEY (temp_code_id) REFERENCES temp_code (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE KEY (temp_code_id, user_id)
 );
 

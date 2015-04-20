@@ -17,6 +17,10 @@ public class AbstractHibernateDAO {
         return sessionFactory.getCurrentSession();
     }
 
+    public void update(Object entity) {
+        getSession().update(entity);
+    }
+
     public Object create(Object entity) {
         return getSession().save(entity);
     }

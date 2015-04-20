@@ -15,7 +15,7 @@ import java.util.List;
 public class TempCodeApiResponseDAOImpl extends AbstractHibernateDAO implements TempCodeApiResponseDAO {
     @Override
     public Integer createTempCodeApiResponse(TempCodeApiResponse response) {
-        return (Integer) create(response);
+        return (Integer) super.create(response);
     }
 
     @Override

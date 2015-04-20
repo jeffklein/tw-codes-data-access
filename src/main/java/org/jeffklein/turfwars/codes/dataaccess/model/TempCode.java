@@ -15,7 +15,6 @@ public class TempCode {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "api_response_id", updatable = false, nullable = false)
     private TempCodeApiResponse tempCodeApiResponse;

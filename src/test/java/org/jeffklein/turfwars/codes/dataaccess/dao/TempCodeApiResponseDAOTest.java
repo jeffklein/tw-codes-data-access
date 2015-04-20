@@ -26,9 +26,9 @@ import java.util.Set;
 @ContextConfiguration(classes = {SpringConfiguration.class, HibernateConfiguration.class})
 public class TempCodeApiResponseDAOTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
-    @Qualifier("tempCodeService")
-    private TempCodeService tempCodeService;
+//    @Autowired
+//    @Qualifier("tempCodeService")
+//    private TempCodeService tempCodeService;
 
     @Autowired
     @Qualifier("tempCodeApiResponseDAO")
