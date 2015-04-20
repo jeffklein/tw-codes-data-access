@@ -34,10 +34,10 @@ public class TempCodeServiceImpl implements TempCodeService {
     /*
      * Assumption: both of these finders will be sorted by expiration date
      */
-    @Override
+    /*@Override
     public List<TempCode> findAllTempCodes() {
         return tempCodeDAO.findAll();
-    }
+    }*/
 
     @Override
     public List<TempCode> findAllUnexpiredTempCodes() {

@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface TempCodeService {
     Integer saveTempCodeApiResponse(TempCodeApiResponse response);
-    List<TempCode> findAllTempCodes();
+    //List<TempCode> findAllTempCodes();
     List<TempCode> findAllUnexpiredTempCodes();
 }
