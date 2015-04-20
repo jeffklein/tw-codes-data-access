@@ -27,13 +27,8 @@ public class TempCodeServiceImpl implements TempCodeService {
     private TempCodeDAO tempCodeDAO;
 
     @Override
-    public void saveTempCodeApiResponse(TempCodeApiResponse response) {
-        TempCode firstTempCodeInResponse = response.getTempCodes().toArray(new TempCode[response.getTempCodes().size()])[0];
-        String firstCode = firstTempCodeInResponse.getCode();
-        TempCode alreadyInDB = tempCodeDAO.findByCode(firstCode);
-        if (alreadyInDB == null) {
-            tempCodeApiResponseDAO.saveTempCodeApiResponse(response);
-        }
+    public Integer saveTempCodeApiResponse(TempCodeApiResponse response) {
+        return tempCodeApiResponseDAO.saveTempCodeApiResponse(response);
     }
 
     /*

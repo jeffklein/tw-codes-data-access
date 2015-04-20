@@ -1,7 +1,5 @@
 package org.jeffklein.turfwars.codes.dataaccess;
 
-import org.jeffklein.turfwars.codes.client.TempCodeApiJsonResponse;
-import org.jeffklein.turfwars.codes.client.TurfWarsApiClient;
 import org.jeffklein.turfwars.codes.dataaccess.config.HibernateConfiguration;
 import org.jeffklein.turfwars.codes.dataaccess.config.SpringConfiguration;
 import org.jeffklein.turfwars.codes.dataaccess.dao.TempCodeApiResponseDAO;
@@ -14,50 +12,101 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 /**
- * DAO test for TempCodeApiResponse JPA Entities
+ * DAO test for TempCodeApiResponse JPA Entities CRUD operations.
+ * Well most of CRUD anyway- I skipped update tests as this entity
+ * should never be updated.
  */
 @ContextConfiguration(classes = {SpringConfiguration.class, HibernateConfiguration.class})
 public class TempCodeApiResponseTest extends AbstractTestNGSpringContextTests {
-
-//    @Autowired
-//    @Qualifier("turfWarsApiClient")
-//    private TurfWarsApiClient turfWarsApiClient;
-
-//    @Autowired
-//    @Qualifier("tempCodeApiResponseDAO")
-//    private TempCodeApiResponseDAO tempCodeApiResponseDAO;
 
     @Autowired
     @Qualifier("tempCodeService")
     private TempCodeService tempCodeService;
 
+    @Autowired
+    @Qualifier("tempCodeApiResponseDAO")
+    private TempCodeApiResponseDAO tempCodeApiResponseDAO;
+
+    private Integer apiResponseId;
+
+    private TempCodeApiResponse respFromDb;
+
+    private Date now = new Date(System.currentTimeMillis());
+
     @Test
-    public void testSaveTempCodeApiResponseWithService() {
-        //TempCodeApiJsonResponse jsonResponse = turfWarsApiClient.getTempCodeApiResponse();
+    public void testCreateTempCodeApiResponse() {
         TempCodeApiResponse toPersist = new TempCodeApiResponse();
-        toPersist.setNextUpdate(new Date(System.currentTimeMillis()));
-        toPersist.setTimestamp(new Date(System.currentTimeMillis()));
+        toPersist.setNextUpdate(now);
+        toPersist.setTimestamp(now);
         toPersist.setTempCodes(makeTestTempCodeData(toPersist));
-        tempCodeService.saveTempCodeApiResponse(toPersist);
+        this.apiResponseId = tempCodeApiResponseDAO.saveTempCodeApiResponse(toPersist);
+    }
+
+    @Test(dependsOnMethods = "testCreateTempCodeApiResponse")
+    public void testRetrieveTempCodeApiResponse() {
+        this.respFromDb = tempCodeApiResponseDAO.findById(this.apiResponseId);
+        Assert.assertNotNull(respFromDb);
+        Assert.assertNotNull(respFromDb.getTimestamp());
+        Assert.assertNotNull(respFromDb.getNextUpdate());
+
+        Assert.assertEquals(respFromDb.getTempCodes().size(), 5);
+        for (TempCode tempCode : respFromDb.getTempCodes()) {
+            Assert.assertNotNull(tempCode);
+            Assert.assertNotNull(tempCode.getApiResponseId());
+            Assert.assertNotNull(tempCode.getCode());
+            Assert.assertNotNull(tempCode.getExpires());
+            Assert.assertNotNull(tempCode.getId());
+            Assert.assertEquals(tempCode.getTempCodeApiResponse().getId(), tempCode.getApiResponseId());
+        }
+    }
+
+    @Test(dependsOnMethods = "testRetrieveTempCodeApiResponse")
+    public void testDeleteTempCodeApiResponse() {
+        Assert.assertNotNull(this.respFromDb);
+        tempCodeApiResponseDAO.deleteTempCodeApiResponse(respFromDb);
+
+        // attempt retrieve to prove that it is gone from db
+        TempCodeApiResponse recentlyDeleted = tempCodeApiResponseDAO.findById(apiResponseId);
+        Assert.assertNull(recentlyDeleted);
     }
 
     private Set<TempCode> makeTestTempCodeData(TempCodeApiResponse apiResponse) {
         Set<TempCode> codes = new HashSet<TempCode>();
         for (int i = 0 ; i < 5 ; i++) {
             TempCode code = new TempCode();
-            code.setCode("-123-45"+i);
-            code.setExpires(new Date(System.currentTimeMillis()));
+            code.setCode(randomTempCode());
+            code.setExpires(now);
             code.setTempCodeApiResponse(apiResponse);
             codes.add(code);
         }
         return codes;
+    }
+
+    private int randomInt() {
+        Random random = new Random();
+        return random.nextInt(10);
+    }
+
+    private String randomTempCode() {
+        StringBuilder sb = new StringBuilder(8);
+        sb.append('-');
+        sb.append(randomInt());
+        sb.append(randomInt());
+        sb.append(randomInt());
+        sb.append('-');
+        sb.append(randomInt());
+        sb.append(randomInt());
+        sb.append(randomInt());
+        return sb.toString();
     }
 
 /* TODO: I might need this code in the backend app itself later, but it obviously does not belong here!

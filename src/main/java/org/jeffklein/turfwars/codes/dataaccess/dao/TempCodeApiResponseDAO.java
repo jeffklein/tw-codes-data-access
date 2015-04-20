@@ -10,7 +10,8 @@ import java.util.List;
  * but I added some finder methods just in case.
  */
 public interface TempCodeApiResponseDAO {
-    void saveTempCodeApiResponse(TempCodeApiResponse response);
+    Integer saveTempCodeApiResponse(TempCodeApiResponse response);
+    void deleteTempCodeApiResponse(TempCodeApiResponse response);
     List<TempCodeApiResponse> findAll();
     TempCodeApiResponse findById(Integer id);
 }

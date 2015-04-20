@@ -26,20 +26,10 @@ public class TempCode {
     @Column(name = "code", nullable = false)
     private String code;
 
-//    //@Column(name = "api_response_id", nullable = false)
-//    @Transient
-//    private Integer apiResponseId;
-
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-//    @ManyToOne(fetch = FetchType.EAGER, targetEntity = TempCodeApiResponse.class)
-//    @JoinColumn(name = "api_response_id", nullable = false)
     public TempCodeApiResponse getTempCodeApiResponse() {
         return tempCodeApiResponse;
     }
@@ -51,10 +41,6 @@ public class TempCode {
     public Integer getApiResponseId() {
         return this.tempCodeApiResponse.getId();
     }
-
-//    public void setApiResponseId(Integer apiResponseId) {
-//        this.apiResponseId = apiResponseId;
-//    }
 
     public Date getExpires() {
         return expires;

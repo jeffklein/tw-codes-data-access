@@ -22,7 +22,7 @@ public class TempCodeApiResponse {
     @Column(name = "next_update", nullable = false)
     private Date nextUpdate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tempCodeApiResponse")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tempCodeApiResponse", fetch = FetchType.EAGER)
     private Set<TempCode> tempCodes = new HashSet<TempCode>();
 
     public Set<TempCode> getTempCodes() {
@@ -35,10 +35,6 @@ public class TempCodeApiResponse {
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Date getTimestamp() {
