@@ -1,6 +1,7 @@
 package org.jeffklein.turfwars.codes.dataaccess.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -24,6 +25,25 @@ public class TempCode {
 
     @Column(name = "code", nullable = false)
     private String code;
+
+    @ManyToMany(
+            targetEntity=User.class,
+            cascade={CascadeType.PERSIST, CascadeType.MERGE}
+    )
+    @JoinTable(
+            name="temp_code_used",
+            joinColumns=@JoinColumn(name="temp_code_id"),
+            inverseJoinColumns=@JoinColumn(name="user_id")
+    )
+    private Collection<User> users;
+
+    public Collection<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<User> users) {
+        this.users = users;
+    }
 
     public Integer getId() {
         return id;

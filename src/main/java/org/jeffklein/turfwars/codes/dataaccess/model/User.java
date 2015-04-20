@@ -1,6 +1,7 @@
 package org.jeffklein.turfwars.codes.dataaccess.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -35,6 +36,17 @@ public class User {
 
     @Column(name = "pref_hide_used", nullable = false)
     private boolean hideUsedCodesPref;
+
+    @ManyToMany(
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "users",
+            targetEntity = TempCode.class
+    )
+    private Collection<TempCode> tempCodesAlreadyPunched;
+
+    public Collection<TempCode> getTempCodesAlreadyPunched() {
+        return tempCodesAlreadyPunched;
+    }
 
     public Integer getId() {
         return id;
