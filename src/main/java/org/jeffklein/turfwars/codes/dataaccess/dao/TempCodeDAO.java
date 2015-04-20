@@ -11,8 +11,8 @@ import java.util.Set;
  * but I added some finder methods just in case.
  */
 public interface TempCodeDAO {
-    void saveTempCode(TempCode tempCode, Integer apiResponseId);
-    void saveTempCodes(Set<TempCode> tempCodes, Integer apiResponseId);
+    void saveTempCode(TempCode tempCode);
+    void saveTempCodes(Set<TempCode> tempCodes);
     List<TempCode> findAll();
     TempCode findById(Integer id);
     TempCode findByCode(String code);

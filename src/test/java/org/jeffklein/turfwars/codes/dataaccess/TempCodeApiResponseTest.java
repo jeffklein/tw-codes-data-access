@@ -16,6 +16,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.Test;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,30 +26,42 @@ import java.util.Set;
 @ContextConfiguration(classes = {SpringConfiguration.class, HibernateConfiguration.class})
 public class TempCodeApiResponseTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
-    @Qualifier("turfWarsApiClient")
-    private TurfWarsApiClient turfWarsApiClient;
+//    @Autowired
+//    @Qualifier("turfWarsApiClient")
+//    private TurfWarsApiClient turfWarsApiClient;
 
-    @Autowired
-    @Qualifier("tempCodeApiResponseDAO")
-    private TempCodeApiResponseDAO tempCodeApiResponseDAO;
+//    @Autowired
+//    @Qualifier("tempCodeApiResponseDAO")
+//    private TempCodeApiResponseDAO tempCodeApiResponseDAO;
 
     @Autowired
     @Qualifier("tempCodeService")
     private TempCodeService tempCodeService;
 
     @Test
-    //@Transactional
-    public void testSaveTempCodeApiResponse() {
-        TempCodeApiJsonResponse jsonResponse = turfWarsApiClient.getTempCodeApiResponse();
+    public void testSaveTempCodeApiResponseWithService() {
+        //TempCodeApiJsonResponse jsonResponse = turfWarsApiClient.getTempCodeApiResponse();
         TempCodeApiResponse toPersist = new TempCodeApiResponse();
-        toPersist.setNextUpdate(jsonResponse.getNextUpdate());
-        toPersist.setTempCodes(copyTempCodesFromJsonResponse(jsonResponse.getTempCodes(), toPersist));
-        toPersist.setTimestamp(jsonResponse.getTimestamp());
+        toPersist.setNextUpdate(new Date(System.currentTimeMillis()));
+        toPersist.setTimestamp(new Date(System.currentTimeMillis()));
+        toPersist.setTempCodes(makeTestTempCodeData(toPersist));
         tempCodeService.saveTempCodeApiResponse(toPersist);
     }
 
-    private Set<TempCode> copyTempCodesFromJsonResponse(Set<org.jeffklein.turfwars.codes.client.TempCode> jsonCodes, TempCodeApiResponse apiResponse) {
+    private Set<TempCode> makeTestTempCodeData(TempCodeApiResponse apiResponse) {
+        Set<TempCode> codes = new HashSet<TempCode>();
+        for (int i = 0 ; i < 5 ; i++) {
+            TempCode code = new TempCode();
+            code.setCode("-123-45"+i);
+            code.setExpires(new Date(System.currentTimeMillis()));
+            code.setTempCodeApiResponse(apiResponse);
+            codes.add(code);
+        }
+        return codes;
+    }
+
+/* TODO: I might need this code in the backend app itself later, but it obviously does not belong here!
+  private Set<TempCode> copyTempCodesFromJsonResponse(Set<org.jeffklein.turfwars.codes.client.TempCode> jsonCodes, TempCodeApiResponse apiResponse) {
         Set<TempCode> dbCodes = new HashSet<TempCode>();
         for (org.jeffklein.turfwars.codes.client.TempCode jsonCode : jsonCodes) {
             TempCode dbCode = new TempCode();
@@ -59,5 +72,5 @@ public class TempCodeApiResponseTest extends AbstractTestNGSpringContextTests {
             dbCodes.add(dbCode);
         }
         return dbCodes;
-    }
+    }*/
 }

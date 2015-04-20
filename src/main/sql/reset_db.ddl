@@ -14,7 +14,8 @@ CREATE TABLE temp_code_api_response (
     modified_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     payload_ts DATETIME NOT NULL,
     next_update DATETIME NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE KEY (payload_ts, next_update)
 );
 
 CREATE TABLE temp_code (
@@ -25,7 +26,8 @@ CREATE TABLE temp_code (
     code VARCHAR(8) NOT NULL,
     api_response_id INT NOT NULL,
     FOREIGN KEY (api_response_id) REFERENCES temp_code_api_response (id) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE KEY (code)
 );
 
 CREATE TABLE user (

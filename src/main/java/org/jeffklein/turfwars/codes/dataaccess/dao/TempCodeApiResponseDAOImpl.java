@@ -12,7 +12,6 @@ import java.util.List;
  * Implementation of DAO methods required by TempCodeApiResponseDAO.
  */
 @Repository("tempCodeApiResponseDAO")
-@Transactional
 public class TempCodeApiResponseDAOImpl extends AbstractHibernateDAO implements TempCodeApiResponseDAO {
     @Override
     public void saveTempCodeApiResponse(TempCodeApiResponse response) {

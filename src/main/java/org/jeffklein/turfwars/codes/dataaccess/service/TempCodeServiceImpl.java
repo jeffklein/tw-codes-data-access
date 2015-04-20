@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Entry point for using the Hibernate DAOs.
+ * Entry point for using the Hibernate DAOs. All methods on the service are @Transactional.
  */
 @Service("tempCodeService")
 @Transactional
@@ -28,8 +28,12 @@ public class TempCodeServiceImpl implements TempCodeService {
 
     @Override
     public void saveTempCodeApiResponse(TempCodeApiResponse response) {
-        tempCodeApiResponseDAO.saveTempCodeApiResponse(response);
-        //tempCodeDAO.saveTempCodes(response.getTempCodes(), response.getId());
+        TempCode firstTempCodeInResponse = response.getTempCodes().toArray(new TempCode[response.getTempCodes().size()])[0];
+        String firstCode = firstTempCodeInResponse.getCode();
+        TempCode alreadyInDB = tempCodeDAO.findByCode(firstCode);
+        if (alreadyInDB == null) {
+            tempCodeApiResponseDAO.saveTempCodeApiResponse(response);
+        }
     }
 
     /*

@@ -13,18 +13,16 @@ import java.util.Set;
  * Implementation of DAO methods required by TempCodeDAO.
  */
 @Repository("tempCodeDAO")
-@Transactional
 public class TempCodeDAOImpl extends AbstractHibernateDAO implements TempCodeDAO {
     @Override
-    public void saveTempCode(TempCode tempCode, Integer apiResponseId) {
-        //tempCode.setApiResponseId(apiResponseId);
+    public void saveTempCode(TempCode tempCode) {
         persist(tempCode);
     }
 
     @Override
-    public void saveTempCodes(Set<TempCode> tempCodes, Integer apiResponseId) {
+    public void saveTempCodes(Set<TempCode> tempCodes) {
         for (TempCode code : tempCodes) {
-            saveTempCode(code, apiResponseId);
+            saveTempCode(code);
         }
     }
 
