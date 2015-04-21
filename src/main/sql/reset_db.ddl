@@ -37,9 +37,9 @@ CREATE TABLE user (
     username VARCHAR(60) NOT NULL,
     password VARCHAR(41) NOT NULL,
     email VARCHAR(60) NULL DEFAULT NULL,
-    tw_name VARCHAR(60) NOT NULL,
+    tw_name VARCHAR(60) NULL DEFAULT NULL,
+    tw_invite_code varchar(20) NULL DEFAULT NULL,
     last_login DATETIME NOT NULL,
-    -- todo move prefs into a separate table
     pref_timezone VARCHAR(60) NOT NULL DEFAULT 'UST',
     pref_hide_used boolean NOT NULL DEFAULT 1,
     PRIMARY KEY (id),

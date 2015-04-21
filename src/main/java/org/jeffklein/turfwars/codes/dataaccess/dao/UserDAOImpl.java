@@ -39,4 +39,10 @@ public class UserDAOImpl extends AbstractHibernateDAO implements UserDAO {
         criteria.add(Restrictions.eq("id", id));
         return (User) criteria.uniqueResult();
     }
+
+    @Override
+    public void associatePunchedTempCodeWithUser(TempCode code, User user) {
+        user.addTempCodeAlreadyPunched(code);
+        updateUser(user);
+    }
 }

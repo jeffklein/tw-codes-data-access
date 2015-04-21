@@ -28,22 +28,10 @@ public class TempCode {
 
     @ManyToMany(
             targetEntity=User.class,
-            cascade={CascadeType.PERSIST, CascadeType.MERGE}
-    )
-    @JoinTable(
-            name="temp_code_used",
-            joinColumns=@JoinColumn(name="temp_code_id"),
-            inverseJoinColumns=@JoinColumn(name="user_id")
+            mappedBy = "tempCodesAlreadyPunched",
+            cascade={CascadeType.ALL}
     )
     private Collection<User> users;
-
-    public Collection<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Collection<User> users) {
-        this.users = users;
-    }
 
     public Integer getId() {
         return id;

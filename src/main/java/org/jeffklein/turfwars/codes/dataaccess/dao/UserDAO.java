@@ -1,5 +1,6 @@
 package org.jeffklein.turfwars.codes.dataaccess.dao;
 
+import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.jeffklein.turfwars.codes.dataaccess.model.User;
 
 /**
@@ -19,4 +20,6 @@ public interface UserDAO {
     public User findByUsername(String username);
 
     public User findById(Integer id);
+
+    public void associatePunchedTempCodeWithUser(TempCode code, User user);
 }

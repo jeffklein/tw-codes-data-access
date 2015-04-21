@@ -38,14 +38,23 @@ public class User {
     private boolean hideUsedCodesPref;
 
     @ManyToMany(
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            mappedBy = "users",
-            targetEntity = TempCode.class
+            cascade = {CascadeType.ALL},
+            targetEntity = TempCode.class,
+            fetch = FetchType.EAGER
+    )
+    @JoinTable(
+            name="temp_code_used",
+            joinColumns=@JoinColumn(name="temp_code_id"),
+            inverseJoinColumns=@JoinColumn(name="user_id")
     )
     private Collection<TempCode> tempCodesAlreadyPunched;
 
     public Collection<TempCode> getTempCodesAlreadyPunched() {
         return tempCodesAlreadyPunched;
+    }
+
+    public void addTempCodeAlreadyPunched(TempCode alreadyPunched) {
+        this.tempCodesAlreadyPunched.add(alreadyPunched);
     }
 
     public Integer getId() {

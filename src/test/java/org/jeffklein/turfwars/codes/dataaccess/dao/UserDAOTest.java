@@ -3,6 +3,7 @@ package org.jeffklein.turfwars.codes.dataaccess.dao;
 import junit.framework.Assert;
 import org.jeffklein.turfwars.codes.dataaccess.config.HibernateConfiguration;
 import org.jeffklein.turfwars.codes.dataaccess.config.SpringConfiguration;
+import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
 import org.jeffklein.turfwars.codes.dataaccess.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,6 +22,10 @@ public class UserDAOTest extends AbstractTestNGSpringContextTests {
     @Autowired
     @Qualifier("userDAO")
     private UserDAO userDAO;
+
+    @Autowired
+    @Qualifier("tempCodeApiResponseDAO")
+    private TempCodeApiResponseDAO tempCodeApiResponseDAO;
 
     private Integer testUserId;
     private User testUser;
@@ -84,9 +89,25 @@ public class UserDAOTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test(dependsOnMethods = "testUpdateUser")
+    public void testAssociatePunchedTempCodeWithUser() {
+        TempCodeApiResponse resp = TestFixtureHelper.createTempCodeApiResponse();
+        tempCodeApiResponseDAO.createTempCodeApiResponse(resp);
+        userDAO.associatePunchedTempCodeWithUser(resp.getTempCodes().iterator().next(), testUser);
+        User fromDbWithOnePunchedCode = userDAO.findById(this.testUser.getId());
+        Assert.assertNotNull(fromDbWithOnePunchedCode);
+        Assert.assertEquals(fromDbWithOnePunchedCode.getTempCodesAlreadyPunched().size(), 1);
+    }
+
+    @Test(dependsOnMethods = "testAssociatePunchedTempCodeWithUser")
     public void testDeleteUser() {
         userDAO.deleteUser(this.testUser);
         User fromDbByUsername = userDAO.findByUsername(TEST_USERNAME);
         Assert.assertNull(fromDbByUsername); // gone from db
     }
+
+    public void testTempCodesAlreadyPunchedDeletedWhenUserDeleted() {
+        // temp_code_used should be empty after owning user deleted
+    }
+
+
 }
