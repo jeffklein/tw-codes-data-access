@@ -1,16 +1,23 @@
 package org.jeffklein.turfwars.codes.dataaccess.dao;
 
 import junit.framework.Assert;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jeffklein.turfwars.codes.dataaccess.config.HibernateConfiguration;
 import org.jeffklein.turfwars.codes.dataaccess.config.SpringConfiguration;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
 import org.jeffklein.turfwars.codes.dataaccess.model.User;
+import org.jeffklein.turfwars.codes.dataaccess.util.ScriptRunnerWrapper;
+import org.jeffklein.turfwars.codes.dataaccess.util.TestFixtureHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import javax.sql.DataSource;
 import java.util.Date;
 
 /**
@@ -19,6 +26,11 @@ import java.util.Date;
 @ContextConfiguration(classes = {SpringConfiguration.class, HibernateConfiguration.class})
 public class UserDAOTest extends AbstractTestNGSpringContextTests {
 
+    private static Log LOG = LogFactory.getLog(UserDAOTest.class);
+
+    @Autowired
+    private DataSource dataSource;
+
     @Autowired
     @Qualifier("userDAO")
     private UserDAO userDAO;
@@ -26,6 +38,17 @@ public class UserDAOTest extends AbstractTestNGSpringContextTests {
     @Autowired
     @Qualifier("tempCodeApiResponseDAO")
     private TempCodeApiResponseDAO tempCodeApiResponseDAO;
+
+    @BeforeClass
+    public void resetTestSchemaBeforeRunningTests() {
+        Assert.assertNotNull(dataSource);
+        ScriptRunnerWrapper.runScriptFromClasspath("/sql/reset_db.ddl", dataSource);
+    }
+
+    @AfterClass
+    public void resetTestSchemaAfterRunningTests() {
+        ScriptRunnerWrapper.runScriptFromClasspath("/sql/reset_db.ddl", dataSource);
+    }
 
     private Integer testUserId;
     private User testUser;

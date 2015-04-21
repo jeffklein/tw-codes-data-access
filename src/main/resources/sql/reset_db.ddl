@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS twcodes;
+DROP DATABASE IF EXISTS ${db.name};
 
-CREATE DATABASE IF NOT EXISTS twcodes;
+CREATE DATABASE IF NOT EXISTS ${db.name};
 
-USE twcodes;
+USE ${db.name};
 
 -- reg_code
 -- reg_code_used

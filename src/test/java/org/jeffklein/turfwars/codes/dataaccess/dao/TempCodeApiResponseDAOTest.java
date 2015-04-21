@@ -5,14 +5,13 @@ import org.jeffklein.turfwars.codes.dataaccess.config.SpringConfiguration;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
 
+import org.jeffklein.turfwars.codes.dataaccess.util.TestFixtureHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.util.Date;
 
 /**
  * DAO test for TempCodeApiResponse JPA Entities CRUD operations.

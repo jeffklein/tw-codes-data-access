@@ -1,4 +1,4 @@
-package org.jeffklein.turfwars.codes.dataaccess.dao;
+package org.jeffklein.turfwars.codes.dataaccess.util;
 
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
