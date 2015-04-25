@@ -35,7 +35,7 @@ public class TempCodeApiResponseDAOTest extends AbstractTestNGSpringContextTests
 
     @BeforeClass
     public void resetTestSchemaBeforeRunningTests() {
-        junit.framework.Assert.assertNotNull(dataSource);
+        Assert.assertNotNull(dataSource);
         ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/reset_db.ddl", dataSource);
     }
 
@@ -49,6 +49,12 @@ public class TempCodeApiResponseDAOTest extends AbstractTestNGSpringContextTests
         TempCodeApiResponse toPersist = TestFixtureHelper.createTempCodeApiResponse();
         this.apiResponseId = tempCodeApiResponseDAO.createTempCodeApiResponse(toPersist);
     }
+/* known break (DuplicateKeyException on temp_code.code field): need to do a select first to check for dupe codes
+    @Test(dependsOnMethods = "testCreateTempCodeApiResponse")
+    public void testCreateAnotherTempCodeApiResponse() {
+        TempCodeApiResponse toPersist = TestFixtureHelper.createTempCodeApiResponse();
+        tempCodeApiResponseDAO.createTempCodeApiResponse(toPersist);
+    }*/
 
     @Test(dependsOnMethods = "testCreateTempCodeApiResponse")
     public void testRetrieveTempCodeApiResponse() {

@@ -11,7 +11,6 @@ import java.util.List;
  * Implementation of DAO methods required by TempCodeDAO.
  */
 @Repository("tempCodeDAO")
-//@Transactional
 public class TempCodeDAOImpl extends AbstractHibernateDAO implements TempCodeDAO {
     @Override
     public Integer saveTempCode(TempCode tempCode) {
