@@ -36,12 +36,12 @@ public class TempCodeApiResponseDAOTest extends AbstractTestNGSpringContextTests
     @BeforeClass
     public void resetTestSchemaBeforeRunningTests() {
         junit.framework.Assert.assertNotNull(dataSource);
-        ScriptRunnerWrapper.runScriptFromClasspath("/sql/reset_db.ddl", dataSource);
+        ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/reset_db.ddl", dataSource);
     }
 
     @AfterClass
     public void resetTestSchemaAfterRunningTests() {
-        ScriptRunnerWrapper.runScriptFromClasspath("/sql/reset_db.ddl", dataSource);
+        ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/reset_db.ddl", dataSource);
     }
 
     @Test

@@ -38,12 +38,12 @@ public class UserDAOTest extends AbstractTestNGSpringContextTests {
     @BeforeClass
     public void resetTestSchemaBeforeRunningTests() {
         Assert.assertNotNull(dataSource);
-        ScriptRunnerWrapper.runScriptFromClasspath("/sql/reset_db.ddl", dataSource);
+        ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/reset_db.ddl", dataSource);
     }
 
     @AfterClass
     public void resetTestSchemaAfterRunningTests() {
-        ScriptRunnerWrapper.runScriptFromClasspath("/sql/reset_db.ddl", dataSource);
+        ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/reset_db.ddl", dataSource);
     }
 
     private Integer testUserId;
