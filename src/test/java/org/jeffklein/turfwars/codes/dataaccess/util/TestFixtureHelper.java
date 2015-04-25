@@ -22,9 +22,9 @@ public class TestFixtureHelper {
         return toPersist;
     }
 
-    public  static Set<TempCode> makeTestTempCodeData(TempCodeApiResponse apiResponse) {
+    public static Set<TempCode> makeTestTempCodeData(TempCodeApiResponse apiResponse) {
         Set<TempCode> codes = new HashSet<TempCode>();
-        for (int i = 0 ; i < 5 ; i++) {
+        for (int i = 0; i < 5; i++) {
             TempCode code = new TempCode();
             code.setCode(randomTempCode());
             code.setExpires(NOW);

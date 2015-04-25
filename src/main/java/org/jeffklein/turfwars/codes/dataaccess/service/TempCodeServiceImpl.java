@@ -5,7 +5,6 @@ import org.jeffklein.turfwars.codes.dataaccess.dao.TempCodeDAO;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,11 +18,9 @@ import java.util.List;
 public class TempCodeServiceImpl implements TempCodeService {
 
     @Autowired
-    @Qualifier("tempCodeApiResponseDAO")
     private TempCodeApiResponseDAO tempCodeApiResponseDAO;
 
     @Autowired
-    @Qualifier("tempCodeDAO")
     private TempCodeDAO tempCodeDAO;
 
     @Override

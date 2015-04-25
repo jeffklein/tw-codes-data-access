@@ -1,7 +1,9 @@
 package org.jeffklein.turfwars.codes.dataaccess.model;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Override of the base TempCodeApiResponse class which uses Jackson annotations.

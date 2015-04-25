@@ -27,9 +27,9 @@ public class TempCode {
     private String code;
 
     @ManyToMany(
-            targetEntity=User.class,
+            targetEntity = User.class,
             mappedBy = "tempCodesAlreadyPunched",
-            cascade={CascadeType.ALL}
+            cascade = {CascadeType.ALL}
     )
     private Collection<User> users;
 

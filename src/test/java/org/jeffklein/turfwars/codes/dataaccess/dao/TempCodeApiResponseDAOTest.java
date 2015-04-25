@@ -1,14 +1,11 @@
 package org.jeffklein.turfwars.codes.dataaccess.dao;
 
 import org.jeffklein.turfwars.codes.dataaccess.config.HibernateConfiguration;
-import org.jeffklein.turfwars.codes.dataaccess.config.SpringConfiguration;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
-
 import org.jeffklein.turfwars.codes.dataaccess.util.ScriptRunnerWrapper;
 import org.jeffklein.turfwars.codes.dataaccess.util.TestFixtureHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -23,15 +20,13 @@ import javax.sql.DataSource;
  * Well most of CRUD anyway- I skipped update tests as this entity
  * should never be updated.
  */
-@ContextConfiguration(classes = {SpringConfiguration.class, HibernateConfiguration.class})
+@ContextConfiguration(classes = {HibernateConfiguration.class})
 public class TempCodeApiResponseDAOTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
-    @Qualifier("tempCodeApiResponseDAO")
     private TempCodeApiResponseDAO tempCodeApiResponseDAO;
 
     @Autowired
-    @Qualifier("dataSource")
     private DataSource dataSource;
 
     private Integer apiResponseId;

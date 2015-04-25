@@ -4,13 +4,11 @@ import junit.framework.Assert;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jeffklein.turfwars.codes.dataaccess.config.HibernateConfiguration;
-import org.jeffklein.turfwars.codes.dataaccess.config.SpringConfiguration;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
 import org.jeffklein.turfwars.codes.dataaccess.model.User;
 import org.jeffklein.turfwars.codes.dataaccess.util.ScriptRunnerWrapper;
 import org.jeffklein.turfwars.codes.dataaccess.util.TestFixtureHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
@@ -23,7 +21,7 @@ import java.util.Date;
 /**
  * CRUD tests for the UserDAO.
  */
-@ContextConfiguration(classes = {SpringConfiguration.class, HibernateConfiguration.class})
+@ContextConfiguration(classes = {HibernateConfiguration.class})
 public class UserDAOTest extends AbstractTestNGSpringContextTests {
 
     private static Log LOG = LogFactory.getLog(UserDAOTest.class);
@@ -32,11 +30,9 @@ public class UserDAOTest extends AbstractTestNGSpringContextTests {
     private DataSource dataSource;
 
     @Autowired
-    @Qualifier("userDAO")
     private UserDAO userDAO;
 
     @Autowired
-    @Qualifier("tempCodeApiResponseDAO")
     private TempCodeApiResponseDAO tempCodeApiResponseDAO;
 
     @BeforeClass

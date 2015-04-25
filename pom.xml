@@ -22,6 +22,7 @@
                 <includes>
                     <include>**/*.ddl</include>
                     <include>**/*.sql</include>
+                    <include>**/*.properties</include>
                 </includes>
             </resource>
         </resources>
@@ -63,12 +64,12 @@
             <artifactId>spring-orm</artifactId>
             <version>${springframework.version}</version>
         </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-test</artifactId>
-        <version>${springframework.version}</version>
-        <scope>test</scope>
-      </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${springframework.version}</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Hibernate -->
         <dependency>
@@ -104,12 +105,6 @@
             <version>3.0.0.CR1</version>
         </dependency>-->
 
-        <!--<dependency>
-            <groupId>org.jeffklein.turfwars</groupId>
-            <artifactId>tw-codes-api-client</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>-->
-
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -135,5 +130,5 @@
             </properties>
         </profile>
     </profiles>
-    
+
 </project>

@@ -4,10 +4,8 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Implementation of DAO methods required by TempCodeDAO.

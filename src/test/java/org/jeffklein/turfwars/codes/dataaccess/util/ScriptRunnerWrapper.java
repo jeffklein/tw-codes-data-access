@@ -27,11 +27,9 @@ public class ScriptRunnerWrapper {
             resetScriptIS = ScriptRunnerWrapper.class.getResourceAsStream(classpathLocation);
             ScriptRunner runner = new ScriptRunner(conn, false, true);
             runner.runScript(new InputStreamReader(resetScriptIS));
-        }
-        catch (Exception e) {
-            throw new RuntimeException("Error while running script at classpath:"+classpathLocation, e);
-        }
-        finally {
+        } catch (Exception e) {
+            throw new RuntimeException("Error while running script at classpath:" + classpathLocation, e);
+        } finally {
             try {
                 if (conn != null && !conn.isClosed()) {
                     conn.close();
@@ -39,8 +37,7 @@ public class ScriptRunnerWrapper {
                 if (resetScriptIS != null) {
                     resetScriptIS.close();
                 }
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 LOG.error("Unable to close DB Connection or InputStream", e);
             }
         }

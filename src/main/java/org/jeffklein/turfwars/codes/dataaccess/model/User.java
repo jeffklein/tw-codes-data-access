@@ -43,9 +43,9 @@ public class User {
             fetch = FetchType.EAGER
     )
     @JoinTable(
-            name="temp_code_used",
-            joinColumns=@JoinColumn(name="temp_code_id"),
-            inverseJoinColumns=@JoinColumn(name="user_id")
+            name = "temp_code_used",
+            joinColumns = @JoinColumn(name = "temp_code_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private Collection<TempCode> tempCodesAlreadyPunched;
 

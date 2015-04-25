@@ -20,9 +20,10 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "org.jeffklein.turfwars.codes" })
-@PropertySource(value = { "classpath:data-access.properties" })
+@ComponentScan(basePackages = {"org.jeffklein.turfwars.codes.dataaccess"})
+@PropertySource(value = {"classpath:org/jeffklein/turfwars/codes/dataaccess/data-access.properties"})
 public class HibernateConfiguration {
+
     @Autowired
     private Environment environment;
 
@@ -30,7 +31,7 @@ public class HibernateConfiguration {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[] { "org.jeffklein.turfwars.codes" });
+        sessionFactory.setPackagesToScan(new String[]{"org.jeffklein.turfwars.codes"});
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
