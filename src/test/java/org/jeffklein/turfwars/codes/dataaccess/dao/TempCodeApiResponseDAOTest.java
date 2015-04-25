@@ -5,13 +5,18 @@ import org.jeffklein.turfwars.codes.dataaccess.config.SpringConfiguration;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
 
+import org.jeffklein.turfwars.codes.dataaccess.util.ScriptRunnerWrapper;
 import org.jeffklein.turfwars.codes.dataaccess.util.TestFixtureHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import javax.sql.DataSource;
 
 /**
  * DAO test for TempCodeApiResponse JPA Entities CRUD operations.
@@ -25,9 +30,24 @@ public class TempCodeApiResponseDAOTest extends AbstractTestNGSpringContextTests
     @Qualifier("tempCodeApiResponseDAO")
     private TempCodeApiResponseDAO tempCodeApiResponseDAO;
 
+    @Autowired
+    @Qualifier("dataSource")
+    private DataSource dataSource;
+
     private Integer apiResponseId;
 
     private TempCodeApiResponse respFromDb;
+
+    @BeforeClass
+    public void resetTestSchemaBeforeRunningTests() {
+        junit.framework.Assert.assertNotNull(dataSource);
+        ScriptRunnerWrapper.runScriptFromClasspath("/sql/reset_db.ddl", dataSource);
+    }
+
+    @AfterClass
+    public void resetTestSchemaAfterRunningTests() {
+        ScriptRunnerWrapper.runScriptFromClasspath("/sql/reset_db.ddl", dataSource);
+    }
 
     @Test
     public void testCreateTempCodeApiResponse() {
