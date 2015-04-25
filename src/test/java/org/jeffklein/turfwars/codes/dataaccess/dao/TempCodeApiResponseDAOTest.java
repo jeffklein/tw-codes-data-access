@@ -77,18 +77,4 @@ public class TempCodeApiResponseDAOTest extends AbstractTestNGSpringContextTests
         TempCodeApiResponse recentlyDeleted = tempCodeApiResponseDAO.findById(apiResponseId);
         Assert.assertNull(recentlyDeleted);
     }
-
-/* TODO: I might need this code in the backend app itself later, but it obviously does not belong here!
-  private Set<TempCode> copyTempCodesFromJsonResponse(Set<org.jeffklein.turfwars.codes.client.TempCode> jsonCodes, TempCodeApiResponse apiResponse) {
-        Set<TempCode> dbCodes = new HashSet<TempCode>();
-        for (org.jeffklein.turfwars.codes.client.TempCode jsonCode : jsonCodes) {
-            TempCode dbCode = new TempCode();
-            dbCode.setCode(jsonCode.getCode());
-            dbCode.setExpires(jsonCode.getExpires());
-            dbCode.setTempCodeApiResponse(apiResponse);
-            //dbCode.setApiResponseId(apiResponse.getId());
-            dbCodes.add(dbCode);
-        }
-        return dbCodes;
-    }*/
 }
