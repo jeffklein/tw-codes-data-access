@@ -28,4 +28,8 @@ public class AbstractHibernateDAO {
     public void delete(Object entity) {
         getSession().delete(entity);
     }
+
+    public void createOrUpdate(Object entity) {
+        getSession().saveOrUpdate(entity);
+    }
 }

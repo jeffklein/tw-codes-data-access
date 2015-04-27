@@ -49,3 +49,13 @@ CREATE TABLE user_temp_code (
     UNIQUE KEY (temp_code_id, user_id)
 );
 
+CREATE TABLE sequence (
+    id INT NOT NULL AUTO_INCREMENT,
+    created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    modified_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    name VARCHAR(100) NOT NULL,
+    next_id INT NOT NULL DEFAULT 1,
+    PRIMARY KEY (id),
+    UNIQUE KEY (name)
+);
+

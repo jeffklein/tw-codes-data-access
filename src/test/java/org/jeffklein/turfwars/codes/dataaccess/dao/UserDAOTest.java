@@ -4,10 +4,8 @@ import junit.framework.Assert;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jeffklein.turfwars.codes.dataaccess.config.HibernateConfiguration;
-import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.jeffklein.turfwars.codes.dataaccess.model.User;
 import org.jeffklein.turfwars.codes.dataaccess.util.ScriptRunnerWrapper;
-import org.jeffklein.turfwars.codes.dataaccess.util.TestFixtureHelper;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,8 +15,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.sql.DataSource;
-import java.util.Date;
-import java.util.Set;
 
 /**
  * CRUD tests for the UserDAO.
@@ -119,7 +115,7 @@ public class UserDAOTest extends AbstractTestNGSpringContextTests {
 //        Assert.assertEquals(fromDbWithOnePunchedCode.getTempCodesAlreadyPunched().size(), 1);
 //    }
 
-//    @Test(dependsOnMethods = "testAssociatePunchedTempCodeWithUser")
+    //    @Test(dependsOnMethods = "testAssociatePunchedTempCodeWithUser")
     public void testDeleteUser() {
         userDAO.deleteUser(this.testUser);
         User fromDbByUsername = userDAO.findByUsername(TEST_USERNAME);
