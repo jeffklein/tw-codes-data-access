@@ -2,6 +2,7 @@ package org.jeffklein.turfwars.codes.dataaccess.service;
 
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -10,6 +11,6 @@ import java.util.Set;
 public interface TempCodeService {
     Integer saveTempCodeBatch(Set<TempCode> batch);
 
-    Integer countAllTempCodes();
+    List<TempCode> findAllTempCodes();
 //    List<TempCode> findAllUnexpiredTempCodes();
 }

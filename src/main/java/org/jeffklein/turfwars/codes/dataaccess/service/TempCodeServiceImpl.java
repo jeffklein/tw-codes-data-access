@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -40,7 +41,7 @@ public class TempCodeServiceImpl implements TempCodeService {
     }
 
     @Override
-    public Integer countAllTempCodes() {
-        return tempCodeDAO.findAll().size();
+    public List<TempCode> findAllTempCodes() {
+        return tempCodeDAO.findAll();
     }
 }
