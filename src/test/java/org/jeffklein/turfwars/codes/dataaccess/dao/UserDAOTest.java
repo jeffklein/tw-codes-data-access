@@ -4,8 +4,11 @@ import junit.framework.Assert;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jeffklein.turfwars.codes.dataaccess.config.HibernateConfiguration;
+import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.jeffklein.turfwars.codes.dataaccess.model.User;
+import org.jeffklein.turfwars.codes.dataaccess.service.TempCodeService;
 import org.jeffklein.turfwars.codes.dataaccess.util.ScriptRunnerWrapper;
+import org.jeffklein.turfwars.codes.dataaccess.util.TestFixtureHelper;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,6 +18,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.sql.DataSource;
+import java.util.Set;
 
 /**
  * CRUD tests for the UserDAO.
@@ -31,7 +35,7 @@ public class UserDAOTest extends AbstractTestNGSpringContextTests {
     private UserDAO userDAO;
 
     @Autowired
-    private TempCodeDAO tempCodeDAO;
+    private TempCodeService tempCodeService;
 
     @BeforeClass
     public void resetTestSchemaBeforeRunningTests() {
@@ -105,17 +109,17 @@ public class UserDAOTest extends AbstractTestNGSpringContextTests {
         // TODO: validate the rest of the fields
     }
 
-//    @Test(dependsOnMethods = "testUpdateUser")
-//    public void testAssociatePunchedTempCodeWithUser() {
-//        Set<TempCode> resp = TestFixtureHelper.makeRandomTempCodeBatch();
-//        tempCodeDAO.saveTempCode();
-//        userDAO.associatePunchedTempCodeWithUser(resp.getTempCodes().iterator().next(), testUser);
-//        User fromDbWithOnePunchedCode = userDAO.findById(this.testUser.getId());
-//        Assert.assertNotNull(fromDbWithOnePunchedCode);
-//        Assert.assertEquals(fromDbWithOnePunchedCode.getTempCodesAlreadyPunched().size(), 1);
-//    }
+    @Test(dependsOnMethods = "testUpdateUser")
+    public void testAssociatePunchedTempCodeWithUser() {
+        Set<TempCode> batch = TestFixtureHelper.makeRandomTempCodeBatch(-100);
+        tempCodeService.saveTempCodeBatch(batch);
+        userDAO.associatePunchedTempCodeWithUser(batch.iterator().next(), testUser);
+        User fromDbWithOnePunchedCode = userDAO.findById(this.testUser.getId());
+        Assert.assertNotNull(fromDbWithOnePunchedCode);
+        Assert.assertEquals(fromDbWithOnePunchedCode.getTempCodesAlreadyPunched().size(), 1);
+    }
 
-    //    @Test(dependsOnMethods = "testAssociatePunchedTempCodeWithUser")
+    @Test(dependsOnMethods = "testAssociatePunchedTempCodeWithUser")
     public void testDeleteUser() {
         userDAO.deleteUser(this.testUser);
         User fromDbByUsername = userDAO.findByUsername(TEST_USERNAME);
