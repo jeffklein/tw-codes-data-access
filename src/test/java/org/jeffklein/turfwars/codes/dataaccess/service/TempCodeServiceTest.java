@@ -16,9 +16,7 @@ import javax.sql.DataSource;
 import java.util.Set;
 
 /**
- * DAO test for TempCodeApiResponse JPA Entities CRUD operations.
- * Well most of CRUD anyway- I skipped update tests as this entity
- * should never be updated.
+ * Tests for the Temp Code Service layer.
  */
 @ContextConfiguration(classes = {HibernateConfiguration.class})
 public class TempCodeServiceTest extends AbstractTestNGSpringContextTests {
