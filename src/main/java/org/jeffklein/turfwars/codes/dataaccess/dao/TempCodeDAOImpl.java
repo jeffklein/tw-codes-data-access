@@ -25,6 +25,13 @@ public class TempCodeDAOImpl extends AbstractHibernateDAO implements TempCodeDAO
     }
 
     @Override
+    public List<TempCode> findAllInBatch(Integer batchId) {
+        Criteria criteria = getSession().createCriteria(TempCode.class);
+        criteria.add(Restrictions.eq("batchId", batchId));
+        return criteria.list();
+    }
+
+    @Override
     public TempCode findById(Integer id) {
         Criteria criteria = getSession().createCriteria(TempCode.class);
         criteria.add(Restrictions.eq("id", id));
@@ -36,12 +43,5 @@ public class TempCodeDAOImpl extends AbstractHibernateDAO implements TempCodeDAO
         Criteria criteria = getSession().createCriteria(TempCode.class);
         criteria.add(Restrictions.eq("code", code));
         return (TempCode) criteria.uniqueResult();
-    }
-
-    @Override
-    public List<TempCode> findByApiResponseId(Integer apiResponseId) {
-        Criteria criteria = getSession().createCriteria(TempCode.class);
-        criteria.add(Restrictions.eq("api_response_id", apiResponseId));
-        return (List<TempCode>) criteria.list();
     }
 }

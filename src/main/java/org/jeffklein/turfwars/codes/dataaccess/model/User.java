@@ -1,8 +1,9 @@
 package org.jeffklein.turfwars.codes.dataaccess.model;
 
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * JPA Entity class for User accounts.
@@ -29,7 +30,7 @@ public class User {
     private String turfwarsName;
 
     @Column(name = "last_login", nullable = false)
-    private Date lastLogin;
+    private DateTime lastLogin;
 
     @Column(name = "pref_timezone", nullable = false)
     private String timezonePref;
@@ -43,7 +44,7 @@ public class User {
             fetch = FetchType.EAGER
     )
     @JoinTable(
-            name = "temp_code_used",
+            name = "user_temp_code",
             joinColumns = @JoinColumn(name = "temp_code_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
@@ -77,7 +78,7 @@ public class User {
         return turfwarsName;
     }
 
-    public Date getLastLogin() {
+    public DateTime getLastLogin() {
         return lastLogin;
     }
 
@@ -106,7 +107,7 @@ public class User {
         this.turfwarsName = turfwarsName;
     }
 
-    public void setLastLogin(Date lastLogin) {
+    public void setLastLogin(DateTime lastLogin) {
         this.lastLogin = lastLogin;
     }
 

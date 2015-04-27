@@ -1,14 +1,13 @@
 package org.jeffklein.turfwars.codes.dataaccess.service;
 
-import org.jeffklein.turfwars.codes.dataaccess.dao.TempCodeApiResponseDAO;
 import org.jeffklein.turfwars.codes.dataaccess.dao.TempCodeDAO;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
-import org.jeffklein.turfwars.codes.dataaccess.model.TempCodeApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Entry point for using the Hibernate DAOs. All methods on the service are @Transactional.
@@ -18,26 +17,24 @@ import java.util.List;
 public class TempCodeServiceImpl implements TempCodeService {
 
     @Autowired
-    private TempCodeApiResponseDAO tempCodeApiResponseDAO;
-
-    @Autowired
     private TempCodeDAO tempCodeDAO;
 
     @Override
-    public Integer saveTempCodeApiResponse(TempCodeApiResponse response) {
-        return tempCodeApiResponseDAO.createTempCodeApiResponse(response);
+    public Integer saveTempCodeBatch(Set<TempCode> batch) {
+        int count = 0;
+        for (TempCode code : batch) {
+            String tempCode = code.getCode();
+            TempCode ifExists = tempCodeDAO.findByCode(tempCode);
+            if (ifExists == null) {
+                tempCodeDAO.saveTempCode(code);
+                count++;
+            }
+        }
+        return count;
     }
 
-    /*
-     * Assumption: both of these finders will be sorted by expiration date
-     */
-    /*@Override
-    public List<TempCode> findAllTempCodes() {
-        return tempCodeDAO.findAll();
-    }*/
-
     @Override
-    public List<TempCode> findAllUnexpiredTempCodes() {
-        throw new RuntimeException("not implemented yet!");
+    public Integer countAllTempCodes() {
+        return tempCodeDAO.findAll().size();
     }
 }

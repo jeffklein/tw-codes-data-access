@@ -8,24 +8,15 @@ USE ${db.name};
 -- reg_code_used
 -- reg_code_added
 
-CREATE TABLE temp_code_api_response (
-    id INT NOT NULL AUTO_INCREMENT,
-    created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    modified_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    payload_ts DATETIME NOT NULL,
-    next_update DATETIME NOT NULL,
-    PRIMARY KEY (id),
-    UNIQUE KEY (payload_ts, next_update)
-);
-
 CREATE TABLE temp_code (
     id INT NOT NULL AUTO_INCREMENT,
     created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     modified_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    expires DATETIME NOT NULL,
+    server_ts DATETIME NOT NULL,
+    next_update_ts DATETIME NOT NULL,
+    expiration_ts DATETIME NOT NULL,
     code VARCHAR(8) NOT NULL,
-    api_response_id INT NOT NULL,
-    FOREIGN KEY (api_response_id) REFERENCES temp_code_api_response (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    batch_id INT NOT NULL,
     PRIMARY KEY (id),
     UNIQUE KEY (code)
 );
@@ -46,7 +37,7 @@ CREATE TABLE user (
     UNIQUE KEY (username)
 );
 
-CREATE TABLE temp_code_used (
+CREATE TABLE user_temp_code (
     id INT NOT NULL AUTO_INCREMENT,
     created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     modified_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

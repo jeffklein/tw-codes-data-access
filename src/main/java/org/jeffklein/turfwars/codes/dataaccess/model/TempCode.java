@@ -1,8 +1,9 @@
 package org.jeffklein.turfwars.codes.dataaccess.model;
 
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * JPA Entity class for TempCode's
@@ -16,15 +17,20 @@ public class TempCode {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "api_response_id", updatable = false, nullable = false)
-    private TempCodeApiResponse tempCodeApiResponse;
+    @Column(name = "server_ts", nullable = false)
+    private DateTime serverTimestamp;
 
-    @Column(name = "expires", nullable = false)
-    private Date expires;
+    @Column(name = "next_update_ts", nullable = false)
+    private DateTime nextUpdateTimestamp;
+
+    @Column(name = "expiration_ts", nullable = false)
+    private DateTime expirationDate;
 
     @Column(name = "code", nullable = false)
     private String code;
+
+    @Column(name = "batch_id", nullable = false)
+    private Integer batchId;
 
     @ManyToMany(
             targetEntity = User.class,
@@ -37,24 +43,12 @@ public class TempCode {
         return id;
     }
 
-    public TempCodeApiResponse getTempCodeApiResponse() {
-        return tempCodeApiResponse;
+    public DateTime getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setTempCodeApiResponse(TempCodeApiResponse apiResponse) {
-        this.tempCodeApiResponse = apiResponse;
-    }
-
-    public Integer getApiResponseId() {
-        return this.tempCodeApiResponse.getId();
-    }
-
-    public Date getExpires() {
-        return expires;
-    }
-
-    public void setExpires(Date expires) {
-        this.expires = expires;
+    public void setExpirationDate(DateTime expirationDate) {
+        this.expirationDate = trimMillisToSecond(expirationDate);
     }
 
     public String getCode() {
@@ -63,5 +57,68 @@ public class TempCode {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public DateTime getServerTimestamp() {
+        return serverTimestamp;
+    }
+
+    public void setServerTimestamp(DateTime serverTimestamp) {
+        this.serverTimestamp = trimMillisToSecond(serverTimestamp);
+    }
+
+    public DateTime getNextUpdateTimestamp() {
+        return nextUpdateTimestamp;
+    }
+
+    public void setNextUpdateTimestamp(DateTime nextUpdateTimestamp) {
+        this.nextUpdateTimestamp = trimMillisToSecond(nextUpdateTimestamp);
+    }
+
+    public Integer getBatchId() {
+        return batchId;
+    }
+
+    public void setBatchId(Integer batchId) {
+        this.batchId = batchId;
+    }
+
+    public static DateTime trimMillisToSecond(DateTime withExtraMillis) {
+        return withExtraMillis.millisOfSecond().roundCeilingCopy().minusMillis(withExtraMillis.getMillisOfSecond());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof TempCode)) {
+            return false;
+        }
+        TempCode that = (TempCode) other;
+        if (this.id != that.getId()) {
+            return false;
+        }
+        if (!(this.code.equals(that.getCode()))) {
+            return false;
+        }
+        if (!(this.expirationDate.equals(that.getExpirationDate()))) {
+            return false;
+        }
+        if (!(this.serverTimestamp.equals(that.getServerTimestamp()))) {
+            return false;
+        }
+        if (!(this.nextUpdateTimestamp.equals(that.getNextUpdateTimestamp()))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "TempCode{" +
+                "id=" + id +
+                ", serverTimestamp=" + serverTimestamp +
+                ", nextUpdateTimestamp=" + nextUpdateTimestamp +
+                ", expirationDate=" + expirationDate +
+                ", code='" + code + '\'' +
+                '}';
     }
 }
