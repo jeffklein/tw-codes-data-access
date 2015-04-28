@@ -37,6 +37,9 @@ public class TempCodeServiceImpl implements TempCodeService {
                 count++;
             }
         }
+        if (count > 0) {
+            sequenceDAO.incrementNextId(Sequence.TW_TEMP_CODE_BATCH_ID);
+        }
         return count;
     }
 

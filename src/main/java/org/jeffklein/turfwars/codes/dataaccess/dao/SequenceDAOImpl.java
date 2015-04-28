@@ -33,10 +33,18 @@ public class SequenceDAOImpl extends AbstractHibernateDAO implements SequenceDAO
             createOrUpdateSequence(sequenceName);
             sequence = findBySequenceName(sequenceName);
         }
-        Integer returnVal = sequence.getNextId();
+        return sequence.getNextId();
+    }
+
+    @Override
+    public void incrementNextId(String sequenceName) {
+        Sequence sequence = findBySequenceName(sequenceName);
+        if (sequence == null) {
+            createOrUpdateSequence(sequenceName);
+            sequence = findBySequenceName(sequenceName);
+        }
         sequence.incrementNextId();
         createOrUpdateSequence(sequenceName);
-        return returnVal;
     }
 
     @Override

@@ -46,27 +46,29 @@ public class SequenceDAOTest extends AbstractTestNGSpringContextTests {
      * next_id column should have the default value '1'
      */
     @Test(dependsOnMethods = "testCreateSequence")
-    public void testGetNextId() {
+    public void testIncrementNextId() {
         Integer nextId = sequenceDAO.getNextId("test");
         Assert.assertNotNull(nextId);
         Assert.assertEquals((int) nextId, 1);
+        sequenceDAO.incrementNextId("test");
     }
 
     /**
      * next_id column should be incremented to '2' this time around.
      */
-    @Test(dependsOnMethods = "testGetNextId")
-    public void testGetNextIdAgain() {
+    @Test(dependsOnMethods = "testIncrementNextId")
+    public void testIncrementNextIdAgain() {
         Integer nextId = sequenceDAO.getNextId("test");
         Assert.assertNotNull(nextId);
         Assert.assertEquals((int) nextId, 2);
+        sequenceDAO.incrementNextId("test");
     }
 
     /**
      * next_id column should be incremented to '3' this time around.
      */
-    @Test(dependsOnMethods = "testGetNextIdAgain")
-    public void testGetNextIdThirdTime() {
+    @Test(dependsOnMethods = "testIncrementNextIdAgain")
+    public void testIncrementNextIdThirdTime() {
         Integer nextId = sequenceDAO.getNextId("test");
         Assert.assertNotNull(nextId);
         Assert.assertEquals((int) nextId, 3);
