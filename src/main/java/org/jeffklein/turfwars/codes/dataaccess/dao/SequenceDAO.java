@@ -12,5 +12,7 @@ public interface SequenceDAO {
 
     Integer getNextId(String sequenceName);
 
+    void incrementNextId(String sequenceName);
+
     Sequence findBySequenceName(String sequenceName);
 }
