@@ -7,12 +7,20 @@
     <groupId>org.jeffklein.turfwars</groupId>
     <artifactId>tw-codes-data-access</artifactId>
     <version>1.1-SNAPSHOT</version>
+
     <properties>
         <springframework.version>4.1.6.RELEASE</springframework.version>
         <hibernate.version>4.3.8.Final</hibernate.version>
         <mysql.version>5.1.35</mysql.version>
         <joda-time.version>2.3</joda-time.version>
     </properties>
+
+    <scm>
+        <connection>scm:git:git@github.com:jeffklein/tw-codes-data-access.git</connection>
+        <url>scm:git:git@github.com:jeffklein/tw-codes-data-access</url>
+        <developerConnection>scm:git:git@github.com:jeffklein/tw-codes-data-access.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
     <build>
         <resources>
@@ -46,8 +54,34 @@
                     <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.2</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <altReleaseDeploymentRepository>releases::default::file:../../../mvn-repo/releases</altReleaseDeploymentRepository>
+                    <altSnapshotDeploymentRepository>snapshots::default::file:../mvn-repo/snapshots</altSnapshotDeploymentRepository>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <url>https://github.com/jeffklein/mvn-repo/raw/master/releases</url>
+            <layout>default</layout>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <url>https://github.com/jeffklein/mvn-repo/raw/master/snapshots</url>
+            <layout>default</layout>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencies>
 
