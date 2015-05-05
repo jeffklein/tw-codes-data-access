@@ -8,3 +8,6 @@ notifications:
 
 before_install:
   - mysql -e "create database IF NOT EXISTS test;" -uroot
+  - mysql -e "SET @@global.time_zone='+00:00';" -uroot
+  - mysql -e "SELECT NOW();" -uroot
+  - mysql -e "STATUS;" -uroot
