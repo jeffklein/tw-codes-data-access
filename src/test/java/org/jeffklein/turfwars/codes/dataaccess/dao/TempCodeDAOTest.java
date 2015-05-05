@@ -36,13 +36,13 @@ public class TempCodeDAOTest extends AbstractTestNGSpringContextTests {
     @BeforeClass
     public void resetTestSchemaBeforeRunningTests() {
         Assert.assertNotNull(dataSource);
-        ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/reset_db.ddl", dataSource);
+        ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/create_tables.ddl", dataSource);
         ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/createTestTables.ddl", dataSource);
     }
 
 //    @AfterClass
 //    public void resetTestSchemaAfterRunningTests() {
-//        ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/reset_db.ddl", dataSource);
+//        ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/create_tables.ddl", dataSource);
 //    }
 
     @Test
