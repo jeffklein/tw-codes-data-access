@@ -40,7 +40,7 @@ public class TempCodeServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testInsertTempCodeBatch() {
-        Set<TempCode> tempCodeBatch = TestFixtureHelper.makeRandomTempCodeBatch(10);
+        Set<TempCode> tempCodeBatch = TestFixtureHelper.makeRandomTempCodeBatch(10, true);
         Assert.assertEquals(tempCodeBatch.size(), 5);
         Integer numInserted = tempCodeService.saveTempCodeBatch(tempCodeBatch);
         Assert.assertEquals((int) numInserted, tempCodeBatch.size());

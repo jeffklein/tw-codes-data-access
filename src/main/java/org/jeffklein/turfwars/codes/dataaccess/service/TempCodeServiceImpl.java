@@ -47,4 +47,9 @@ public class TempCodeServiceImpl implements TempCodeService {
     public List<TempCode> findAllTempCodes() {
         return tempCodeDAO.findAll();
     }
+
+    @Override
+    public List<TempCode> findAllUnexpiredTempCodes() {
+        return tempCodeDAO.findAllUnexpired();
+    }
 }

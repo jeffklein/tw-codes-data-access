@@ -111,7 +111,7 @@ public class UserDAOTest extends AbstractTestNGSpringContextTests {
 
     @Test(dependsOnMethods = "testUpdateUser")
     public void testAssociatePunchedTempCodeWithUser() {
-        Set<TempCode> batch = TestFixtureHelper.makeRandomTempCodeBatch(-100);
+        Set<TempCode> batch = TestFixtureHelper.makeRandomTempCodeBatch(-100, true);
         tempCodeService.saveTempCodeBatch(batch);
         userDAO.associatePunchedTempCodeWithUser(batch.iterator().next(), testUser);
         User fromDbWithOnePunchedCode = userDAO.findById(this.testUser.getId());

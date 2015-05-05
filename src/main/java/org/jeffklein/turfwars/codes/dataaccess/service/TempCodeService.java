@@ -12,5 +12,5 @@ public interface TempCodeService {
     Integer saveTempCodeBatch(Set<TempCode> batch);
 
     List<TempCode> findAllTempCodes();
-//    List<TempCode> findAllUnexpiredTempCodes();
+    List<TempCode> findAllUnexpiredTempCodes();
 }

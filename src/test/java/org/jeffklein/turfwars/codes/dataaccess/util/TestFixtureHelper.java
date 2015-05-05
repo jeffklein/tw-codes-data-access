@@ -2,7 +2,6 @@ package org.jeffklein.turfwars.codes.dataaccess.util;
 
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -12,25 +11,30 @@ import java.util.Set;
  * Helper methods to make test fixtures.
  */
 public class TestFixtureHelper {
-    public static final DateTime NOW = new DateTime(DateTimeZone.forID("UTC"));
+    public static final DateTime NOW = DateTimeUtil.nowUtc();
 
-    public static Set<TempCode> makeRandomTempCodeBatch(int batchId) {
+    public static final DateTime PAST = DateTimeUtil.nowUtc().withYear(1997);
+
+    public static final DateTime FUTURE = DateTimeUtil.nowUtc().withYear(2112);
+
+    public static Set<TempCode> makeRandomTempCodeBatch(int batchId, boolean futureExpDate) {
         Set<TempCode> codes = new HashSet<TempCode>();
         for (int i = 0; i < 5; i++) {
-            TempCode code = makeRandomTempCode(batchId);
+            TempCode code = makeRandomTempCode(batchId, futureExpDate);
             codes.add(code);
         }
         return codes;
     }
 
-    public static TempCode makeRandomTempCode() {
-        return makeRandomTempCode(1);
-    }
-
-    public static TempCode makeRandomTempCode(int batchId) {
+    public static TempCode makeRandomTempCode(int batchId, boolean futureExpDate) {
         TempCode code = new TempCode();
         code.setCode(randomTempCode());
-        code.setExpirationDate(NOW);
+        if (futureExpDate) {
+            code.setExpirationDate(FUTURE);
+        }
+        else {
+            code.setExpirationDate(PAST);
+        }
         code.setNextUpdateTimestamp(NOW);
         code.setServerTimestamp(NOW);
         code.setBatchId(batchId);

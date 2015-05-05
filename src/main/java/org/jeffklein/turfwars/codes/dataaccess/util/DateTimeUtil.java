@@ -4,7 +4,11 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 /**
- * Created by jklein on 5/4/15.
+ * Essentially this class makes sure any new datetime object is initialized
+ * in UTC and has its millis trimmed to zero.For the purposes of this app,
+ * we don't need millisecond precision. I was getting test breaks because
+ * apparently the JDBC driver (or MySQL itself?) drops millis, so it was
+ * easier just to zero them out since we don't need them anyway.
  */
 public class DateTimeUtil {
     /**
@@ -31,5 +35,9 @@ public class DateTimeUtil {
                 .withMinuteOfHour(minuteOfHour)
                 .withSecondOfMinute(secondOfMinute)
                 .withMillisOfSecond(0);
+    }
+
+    public static final DateTime nowUtc() {
+        return new DateTime(DateTimeZone.forID("UTC")).withMillisOfSecond(0);
     }
 }

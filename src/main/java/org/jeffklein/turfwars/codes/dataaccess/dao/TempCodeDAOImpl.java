@@ -4,6 +4,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
+import org.jeffklein.turfwars.codes.dataaccess.util.DateTimeUtil;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,6 +31,22 @@ public class TempCodeDAOImpl extends AbstractHibernateDAO implements TempCodeDAO
     public List<TempCode> findAllInBatch(Integer batchId) {
         Criteria criteria = getSession().createCriteria(TempCode.class);
         criteria.add(Restrictions.eq("batchId", batchId));
+        criteria.addOrder(Order.asc("expirationDate"));
+        return criteria.list();
+    }
+
+    @Override
+    public List<TempCode> findAllUnexpired() {
+        Criteria criteria = getSession().createCriteria(TempCode.class);
+        criteria.add(Restrictions.ge("expirationDate", DateTimeUtil.nowUtc()));
+        criteria.addOrder(Order.asc("expirationDate"));
+        return criteria.list();
+    }
+
+    @Override
+    public List<TempCode> findAllExpired() {
+        Criteria criteria = getSession().createCriteria(TempCode.class);
+        criteria.add(Restrictions.le("expirationDate", DateTimeUtil.nowUtc()));
         criteria.addOrder(Order.asc("expirationDate"));
         return criteria.list();
     }

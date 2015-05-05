@@ -14,6 +14,10 @@ public interface TempCodeDAO {
 
     List<TempCode> findAllInBatch(Integer batchId);
 
+    List<TempCode> findAllUnexpired();
+
+    List<TempCode> findAllExpired();
+
     TempCode findById(Integer id);
 
     TempCode findByCode(String code);

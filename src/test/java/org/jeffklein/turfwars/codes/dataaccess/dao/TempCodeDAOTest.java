@@ -29,7 +29,7 @@ public class TempCodeDAOTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private DataSource dataSource;
 
-    private TempCode randomTempCode = TestFixtureHelper.makeRandomTempCode();
+    private TempCode randomTempCode = TestFixtureHelper.makeRandomTempCode(1, false);
 
     private int randomTempCodeId;
 
@@ -37,7 +37,6 @@ public class TempCodeDAOTest extends AbstractTestNGSpringContextTests {
     public void resetTestSchemaBeforeRunningTests() {
         Assert.assertNotNull(dataSource);
         ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/create_tables.ddl", dataSource);
-        ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/createTestTables.ddl", dataSource);
     }
 
 //    @AfterClass
@@ -83,7 +82,7 @@ public class TempCodeDAOTest extends AbstractTestNGSpringContextTests {
 
     @Test(dependsOnMethods = "testInsertTempCode")
     public void testInsertBatchOfTempCodes() {
-        Set<TempCode> batch = TestFixtureHelper.makeRandomTempCodeBatch(5);
+        Set<TempCode> batch = TestFixtureHelper.makeRandomTempCodeBatch(5, true);
         for (TempCode code : batch) {
             String tempCode = code.getCode();
             TempCode ifExists = tempCodeDAO.findByCode(tempCode);
@@ -122,13 +121,28 @@ public class TempCodeDAOTest extends AbstractTestNGSpringContextTests {
         Assert.assertTrue(roundedToClosestSecond.getMillis() < origMillis);
     }
 
-    @Test
-    public void testSavedDateIsCorrectTimezone() {
-        // create a bogus table with one datetime column. use
-        // hibernate to persist a joda datetime with all fields
-        // set explicitly. then use hibernate/joda/jadira to
-        // retrieve the date. Assert that all fields match
-        // what was set originally
+    @Test(dependsOnMethods = "testInsertBatchOfTempCodes")
+    public void testFindExpired() {
+        List expiredTemps = tempCodeDAO.findAllExpired();
+        Assert.assertNotNull(expiredTemps);
+        Assert.assertEquals(expiredTemps.size(), 1);
     }
 
+    @Test(dependsOnMethods = "testInsertBatchOfTempCodes")
+    public void testFindUnExpired() {
+        List unexpiredTemps = tempCodeDAO.findAllUnexpired();
+        Assert.assertNotNull(unexpiredTemps);
+        Assert.assertEquals(unexpiredTemps.size(), 5);
+    }
+
+    @Test(dependsOnMethods = "testInsertBatchOfTempCodes")
+    public void testExpiredAndUnexpiredSizesSameAsAllSize() {
+        List expiredTemps = tempCodeDAO.findAllExpired();
+        List unexpiredTemps = tempCodeDAO.findAllUnexpired();
+        List allTemps = tempCodeDAO.findAll();
+        Assert.assertNotNull(expiredTemps);
+        Assert.assertNotNull(unexpiredTemps);
+        Assert.assertNotNull(allTemps);
+        Assert.assertEquals(unexpiredTemps.size()+expiredTemps.size(), allTemps.size());
+    }
 }
