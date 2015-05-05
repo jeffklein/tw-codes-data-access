@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -39,10 +40,10 @@ public class TempCodeDAOTest extends AbstractTestNGSpringContextTests {
         ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/create_tables.ddl", dataSource);
     }
 
-//    @AfterClass
-//    public void resetTestSchemaAfterRunningTests() {
-//        ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/create_tables.ddl", dataSource);
-//    }
+    @AfterClass
+    public void resetTestSchemaAfterRunningTests() {
+        ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/create_tables.ddl", dataSource);
+    }
 
     @Test
     public void testInsertTempCode() {
@@ -94,13 +95,14 @@ public class TempCodeDAOTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(allCodes.size(), 6);
     }
 
-    @Test(dependsOnMethods = "testInsertBatchOfTempCodes", enabled = false)
+    @Test(dependsOnMethods = "testInsertBatchOfTempCodes")
     public void testFindAllOrderedByExpiration() {
         List<TempCode> allCodes = this.tempCodeDAO.findAll();
         Assert.assertEquals(allCodes.size(), 6);
         DateTime lastExpirationDate = new DateTime(DateTimeZone.forID("UTC")).withDate(1970,1,1).withTime(0,0,0,0); // the 'epoch'
         for (TempCode tempCode : allCodes) {
-            Assert.assertTrue(tempCode.getExpirationDate().isAfter(lastExpirationDate));
+            // assert that next code in list has expire date greater than or equal than previous
+            Assert.assertTrue(tempCode.getExpirationDate().isAfter(lastExpirationDate) || tempCode.getExpirationDate().equals(lastExpirationDate));
             lastExpirationDate = tempCode.getExpirationDate();
         }
     }
