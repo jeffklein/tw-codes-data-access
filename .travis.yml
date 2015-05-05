@@ -11,3 +11,4 @@ before_install:
   - mysql -e "SET @@global.time_zone='+00:00';" -uroot
   - mysql -e "SELECT NOW();" -uroot
   - mysql -e "STATUS;" -uroot
+  - mysql -e "SELECT @@SQL_MODE;" -uroot
