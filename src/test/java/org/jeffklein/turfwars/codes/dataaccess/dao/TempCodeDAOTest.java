@@ -5,6 +5,7 @@ import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.jeffklein.turfwars.codes.dataaccess.util.ScriptRunnerWrapper;
 import org.jeffklein.turfwars.codes.dataaccess.util.TestFixtureHelper;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -36,6 +37,7 @@ public class TempCodeDAOTest extends AbstractTestNGSpringContextTests {
     public void resetTestSchemaBeforeRunningTests() {
         Assert.assertNotNull(dataSource);
         ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/reset_db.ddl", dataSource);
+        ScriptRunnerWrapper.runScriptFromClasspath("/org/jeffklein/turfwars/codes/dataaccess/sql/createTestTables.ddl", dataSource);
     }
 
 //    @AfterClass
@@ -93,6 +95,17 @@ public class TempCodeDAOTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(allCodes.size(), 6);
     }
 
+    @Test(dependsOnMethods = "testInsertBatchOfTempCodes", enabled = false)
+    public void testFindAllOrderedByExpiration() {
+        List<TempCode> allCodes = this.tempCodeDAO.findAll();
+        Assert.assertEquals(allCodes.size(), 6);
+        DateTime lastExpirationDate = new DateTime(DateTimeZone.forID("UTC")).withDate(1970,1,1).withTime(0,0,0,0); // the 'epoch'
+        for (TempCode tempCode : allCodes) {
+            Assert.assertTrue(tempCode.getExpirationDate().isAfter(lastExpirationDate));
+            lastExpirationDate = tempCode.getExpirationDate();
+        }
+    }
+
     @Test(dependsOnMethods = "testInsertBatchOfTempCodes")
     public void testFindAllInBatch() {
         List<TempCode> allInOrigBatch = this.tempCodeDAO.findAllInBatch(1);
@@ -109,5 +122,13 @@ public class TempCodeDAOTest extends AbstractTestNGSpringContextTests {
         Assert.assertTrue(roundedToClosestSecond.getMillis() < origMillis);
     }
 
+    @Test
+    public void testSavedDateIsCorrectTimezone() {
+        // create a bogus table with one datetime column. use
+        // hibernate to persist a joda datetime with all fields
+        // set explicitly. then use hibernate/joda/jadira to
+        // retrieve the date. Assert that all fields match
+        // what was set originally
+    }
 
 }

@@ -2,6 +2,7 @@ package org.jeffklein.turfwars.codes.dataaccess.util;
 
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -11,7 +12,7 @@ import java.util.Set;
  * Helper methods to make test fixtures.
  */
 public class TestFixtureHelper {
-    public static final DateTime NOW = new DateTime(System.currentTimeMillis());
+    public static final DateTime NOW = new DateTime(DateTimeZone.forID("UTC"));
 
     public static Set<TempCode> makeRandomTempCodeBatch(int batchId) {
         Set<TempCode> codes = new HashSet<TempCode>();

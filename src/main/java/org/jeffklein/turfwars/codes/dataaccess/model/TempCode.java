@@ -1,5 +1,7 @@
 package org.jeffklein.turfwars.codes.dataaccess.model;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.Parameter;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
@@ -18,12 +20,27 @@ public class TempCode {
     private Integer id;
 
     @Column(name = "server_ts", nullable = false)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime",
+          parameters = {
+              @Parameter(name = "databaseZone", value = "UTC"),
+              @Parameter(name = "javaZone", value = "UTC")
+          })
     private DateTime serverTimestamp;
 
     @Column(name = "next_update_ts", nullable = false)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime",
+            parameters = {
+                    @Parameter(name = "databaseZone", value = "UTC"),
+                    @Parameter(name = "javaZone", value = "UTC")
+            })
     private DateTime nextUpdateTimestamp;
 
     @Column(name = "expiration_ts", nullable = false)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime",
+            parameters = {
+                    @Parameter(name = "databaseZone", value = "UTC"),
+                    @Parameter(name = "javaZone", value = "UTC")
+            })
     private DateTime expirationDate;
 
     @Column(name = "code", nullable = false)

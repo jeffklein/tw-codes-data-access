@@ -39,6 +39,15 @@
                     <include>**/*.properties</include>
                 </includes>
             </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.ddl</include>
+                    <include>**/*.sql</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </testResource>
         </testResources>
         <plugins>
             <plugin>
@@ -46,9 +55,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-                    <!--<forkCount>3</forkCount>
-                    <forkMode>always</forkMode>
-                    <reuseForks>true</reuseForks>-->
                     <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
                 </configuration>
             </plugin>

@@ -1,6 +1,7 @@
 package org.jeffklein.turfwars.codes.dataaccess.dao;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,7 @@ public class TempCodeDAOImpl extends AbstractHibernateDAO implements TempCodeDAO
     @SuppressWarnings("unchecked")
     public List<TempCode> findAll() {
         Criteria criteria = getSession().createCriteria(TempCode.class);
+        criteria.addOrder(Order.asc("expirationDate"));
         return (List<TempCode>) criteria.list();
     }
 
@@ -28,6 +30,7 @@ public class TempCodeDAOImpl extends AbstractHibernateDAO implements TempCodeDAO
     public List<TempCode> findAllInBatch(Integer batchId) {
         Criteria criteria = getSession().createCriteria(TempCode.class);
         criteria.add(Restrictions.eq("batchId", batchId));
+        criteria.addOrder(Order.asc("expirationDate"));
         return criteria.list();
     }
 
