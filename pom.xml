@@ -4,7 +4,7 @@
 
     <groupId>org.jeffklein.turfwars</groupId>
     <artifactId>tw-codes-data-access</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2-SNAPSHOT</version>
 
     <properties>
         <springframework.version>4.1.6.RELEASE</springframework.version>
@@ -17,7 +17,7 @@
         <connection>scm:git:git@github.com:jeffklein/tw-codes-data-access.git</connection>
         <url>scm:git:git@github.com:jeffklein/tw-codes-data-access</url>
         <developerConnection>scm:git:git@github.com:jeffklein/tw-codes-data-access.git</developerConnection>
-        <tag>tw-codes-data-access-1.2.1</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <build>
