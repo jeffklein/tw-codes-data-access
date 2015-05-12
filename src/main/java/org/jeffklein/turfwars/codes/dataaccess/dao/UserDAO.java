@@ -1,5 +1,6 @@
 package org.jeffklein.turfwars.codes.dataaccess.dao;
 
+import org.jeffklein.turfwars.codes.dataaccess.model.Role;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.jeffklein.turfwars.codes.dataaccess.model.User;
 

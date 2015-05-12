@@ -5,7 +5,7 @@ CREATE DATABASE IF NOT EXISTS ${db.name};
 USE ${db.name};
 
 -- reg_code
--- reg_code_used
+-- user_reg_code
 -- reg_code_added
 
 CREATE TABLE temp_code (
@@ -27,6 +27,7 @@ CREATE TABLE user (
 --    created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     username VARCHAR(60) NOT NULL,
     password VARCHAR(41) NOT NULL,
+    enabled TINYINT NOT NULL DEFAULT 1,
     email VARCHAR(60) NULL DEFAULT NULL,
     tw_name VARCHAR(60) NULL DEFAULT NULL,
     tw_invite_code varchar(20) NULL DEFAULT NULL,
@@ -35,6 +36,27 @@ CREATE TABLE user (
     pref_hide_used boolean NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
     UNIQUE KEY (username)
+);
+
+CREATE TABLE role (
+    id INT NOT NULL AUTO_INCREMENT,
+    modified_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--    created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    role_name VARCHAR(60) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY  (role_name)
+  );
+
+CREATE TABLE user_role (
+    id INT NOT NULL AUTO_INCREMENT,
+    modified_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--    created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    user_id INT NOT NULL,
+    role_id INT NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY  (role_id, user_id),
+    FOREIGN KEY (user_id) REFERENCES user (id),
+    FOREIGN KEY (role_id) REFERENCES role(id)
 );
 
 CREATE TABLE user_temp_code (

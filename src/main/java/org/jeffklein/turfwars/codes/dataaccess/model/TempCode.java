@@ -5,7 +5,7 @@ import org.hibernate.annotations.Parameter;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * JPA Entity class for TempCode's
@@ -54,7 +54,7 @@ public class TempCode {
             mappedBy = "tempCodesAlreadyPunched",
             cascade = {CascadeType.ALL}
     )
-    private Collection<User> users;
+    private Set<User> users;
 
     public Integer getId() {
         return id;

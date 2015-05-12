@@ -2,6 +2,7 @@ package org.jeffklein.turfwars.codes.dataaccess.dao;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.jeffklein.turfwars.codes.dataaccess.model.Role;
 import org.jeffklein.turfwars.codes.dataaccess.model.TempCode;
 import org.jeffklein.turfwars.codes.dataaccess.model.User;
 import org.springframework.stereotype.Repository;
@@ -23,7 +24,7 @@ public class UserDAOImpl extends AbstractHibernateDAO implements UserDAO {
 
     @Override
     public void updateUser(User user) {
-        super.update(user);
+        super.createOrUpdate(user);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class UserDAOImpl extends AbstractHibernateDAO implements UserDAO {
 
     @Override
     public void associatePunchedTempCodeWithUser(TempCode code, User user) {
-        user.addTempCodeAlreadyPunched(code);
+        user.addPunchedTempCode(code);
         updateUser(user);
     }
 }
